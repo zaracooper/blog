@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Zara&#39;s Code Adventures</title>
+    <link>https://zaracooper.github.io/blog/posts/</link>
+    <description>Recent content in Posts on Zara&#39;s Code Adventures</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 22 Aug 2019 21:37:57 +0300</lastBuildDate>
+    
+	<atom:link href="https://zaracooper.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Newbie Solo Adventures</title>
+      <link>https://zaracooper.github.io/blog/posts/newbie-solo-adventures/</link>
+      <pubDate>Thu, 22 Aug 2019 21:37:57 +0300</pubDate>
+      
+      <guid>https://zaracooper.github.io/blog/posts/newbie-solo-adventures/</guid>
+      <description>Some content.
+hello := &amp;quot;there&amp;quot;;  </description>
+    </item>
+    
+  </channel>
+</rss>
