@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir.ttc') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.catalogue-title, .post-title {
+    color: #D34E24;
+}
+
+.catalogue-line, .post-line {
+    border-color: #F8AA02;
+}
+
+.nav-title {
+    color: #F8AA02;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    float: left;
+    align-self: center;
+}
+
+.nav-container a {
+    color: #D34E24;
+}
+
+.nav-container, .nav {
+    background-color: transparent;
+}
+
+.nav-logo {
+    height: 40px;
+    float: left;
+    margin-bottom: 0px;
+}
+
+.nav-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.post-info {
+    color: #2b9eb3;
+}
+
+p, footer, time, .pagination  {
+    font-family:'Avenir';
+}
