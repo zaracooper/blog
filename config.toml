@@ -1,0 +1,27 @@
+baseURL = "https://zaracooper.github.io/blog"
+languageCode = "en-us"
+title = "Zara's Code Adventures"
+theme = "tale"
+
+[Author]
+    name = "Zara"
+
+[Params]
+[[Params.extras]]
+    type = "img/png"
+    src = "images/logo.png"
+    rel = "icon"
+
+[[Params.extras]]
+    type = "text/css"
+    src = "css/styling.css"
+    rel = "stylesheet"
+
+[[Params.extras]]
+    type = "text/css"
+    src = "css/prism.css"
+    rel = "stylesheet"
+
+[[Params.scripts]]
+    type = "text/javascript"
+    src = "scripts/prism.js"
