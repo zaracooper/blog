@@ -3,7 +3,6 @@ languageCode = "en-us"
 title = "Zara's Code Adventures"
 theme = "tale"
 disqusShortname = "zaracooper-github-io"
-publishDir = "docs"
 
 [Author]
     name = "Zara"
