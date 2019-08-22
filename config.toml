@@ -1,14 +1,15 @@
-baseURL = "https://zaracooper.github.io/blog"
+baseURL = "https://zaracooper.github.io/blog/"
 languageCode = "en-us"
 title = "Zara's Code Adventures"
 theme = "tale"
+disqusShortname = "zaracooper-github-io"
 
 [Author]
     name = "Zara"
 
 [Params]
 [[Params.extras]]
-    type = "img/png"
+    type = "image/png"
     src = "images/logo.png"
     rel = "icon"
 
