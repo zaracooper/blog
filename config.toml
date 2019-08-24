@@ -8,21 +8,23 @@ disqusShortname = "zaracooper-github-io"
     name = "Zara"
 
 [Params]
-[[Params.extras]]
+[[Params.links]]
     type = "image/png"
-    src = "images/logo.png"
+    href = "images/logo.png"
     rel = "icon"
+    critical = "true"
 
-[[Params.extras]]
+[[Params.links]]
     type = "text/css"
-    src = "css/styling.css"
+    href = "css/styling.css"
     rel = "stylesheet"
 
-[[Params.extras]]
+[[Params.links]]
     type = "text/css"
-    src = "css/prism.css"
+    href = "css/prism.css"
     rel = "stylesheet"
 
 [[Params.scripts]]
     type = "text/javascript"
     src = "scripts/prism.js"
+    async = "true"
