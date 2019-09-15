@@ -5,7 +5,7 @@ draft: false
 author: "Zara Cooper"
 summary: "A tutorial on how to create a developer portfolio using the Hugo Static Site Generation Tool and Github User Pages."
 image: "Hugo-Github-Pages-Portfolio.jpg"
-canonicalURL: "https://my.scotch.io/posts/47227"
+canonicalURL: "https://scotch.io/@zaracooper/create-your-developer-portfolio-using-hugo-and-github-pages"
 ---
 
 One thing that sets you apart when looking for a developer gig is a portfolio website. It gives potential clients or employers insight into who you are as a professional, the kind of work you’ve done in the past and what you’re currently up to. Unfortunately, a common impediment that keeps many — including most recently myself — from having portfolio sites is dreading all the work, planning and thought that goes into building a site from scratch, which hosting provider to choose, if the domain you want is available, how much hosting and a domain will set you back (especially if you’re strapped for cash) etc.
@@ -41,21 +41,20 @@ Yes. Here’s why:
     cd <PORTFOLIO_NAME> && git init .
     ```
 
-
 # Step 2: Choose and add a theme
 
-1. Head on over to the  [Hugo Portfolio Themes page](https://themes.gohugo.io/tags/portfolio/) and pick a theme that you like. For this tutorial, I picked a theme called [UILite](https://themes.gohugo.io/hugo-uilite/). It’s simple, looks pretty cool and meets the basic needs of a portfolio. There are many other cool themes to choose from though.
+1. Head on over to the  [Hugo's Portfolio Themes page](https://themes.gohugo.io/tags/portfolio/) and pick a theme that you like. For this tutorial, I picked a theme called [UILite](https://themes.gohugo.io/hugo-uilite/). It’s simple, looks pretty cool and meets the basic needs of a portfolio. There are many other cool themes to choose from though.
 
     This is what the UILite theme looks like.
 
     ![UILite Theme](theme_sample.png#bordered-image)
 
 2. Add the theme as a git submodule to `<PORTFOLIO_NAME>`. This step varies from theme to theme but almost all encourage the use of the theme as a submodule. You add the theme by running:
-    ```git
+    ```bash
     git submodule add <LINK_TO_THEME_REPO> themes/<THEME_NAME>
     ```
     In our case:
-    ```git
+    ```bash
     git submodule add https://github.com/uicardiodev/hugo-uilite themes/hugo-uilite
     ```
 
@@ -93,7 +92,7 @@ It looks broken but it’s not. We just haven't added content to the site yet. T
 
 # Step 4: Tweak your theme
 
-So this part is subjective and depends on your theme, the content you’d like to add and your styling tastes. Some common things portfolios have are prominently displayed names, a brief bio, links to developer social profiles, skills, projects, work experience, accomplishments, etc.
+So this part is subjective and depends on your theme, the content you’d like to add and your styling tastes. Some common things portfolios have are prominently displayed names, a brief bio, links to social developer profiles, skills, projects, work experience, accomplishments, etc.
 
 Here's one way to tweak the **hugo-uilite** theme:
 
@@ -138,7 +137,7 @@ Here's one way to tweak the **hugo-uilite** theme:
     **d. Added a projects section**
     : - This theme did not come with a **Projects Section**. 
     : - Since it's similar to the **Services Section**, I duplicated its HTML file (`layouts/partials/projects.html`), modified it to make the project cards linkable, added a data file for it (`data/projects.json`) and added it to the `layouts/index.html` file (which I copied over from the theme).
-    : - In cases where you do not provide services, all you have to do is change the contents of `data/services.json` file to reflect Projects or something else, not Services.
+    : - In cases where you do not provide services, all you have to do is change the contents of `data/services.json` file to reflect **Projects** or something else, not **Services**.
 
 
     **e. Added social information**
@@ -157,7 +156,7 @@ This is what the final site looks like.
 5. Locally, `cd` back into the `<PORTFOLIO_NAME>` folder and check that you’re happy with how your site looks like by running the Hugo server. If you’re satisfied with the resulting portfolio, kill the server.
 6. We next have to link the `public` folder generated when we build the site locally to the `<USERNAME>.github.io` repo we created. We’ll make the `<USERNAME>.github.io` repo the remote origin of the public folder and also make the `public` folder a submodule of our `<PORTFOLIO_NAME>` project. Do this by running:
 
-    ```git
+    ```bash
     git submodule add -b master git@github.com:<USERNAME>/<USERNAME>.github.io.git public
     ```
 
@@ -170,7 +169,7 @@ This is what the final site looks like.
     ./deploy.sh "Deploy the first version of my portfolio site”
     ```
 
-# Step 6: Host your site on GitHub pages
+# Step 6: Host your site on GitHub Pages
 If you’re unfamiliar with or interested in Github User Pages you could read about them [here](https://help.github.com/en/articles/user-organization-and-project-pages#user--organization-pages).
 
 We’re going to be hosting the portfolio we created on a **User Page** which will be found at the `<USERNAME>.github.io` URL. We’ll be hosting directly from the **master**  branch of the `<USERNAME>.github.io` repo we created in step 5. To do this:
@@ -179,7 +178,7 @@ We’re going to be hosting the portfolio we created on a **User Page** which wi
 
     ![Github Repo Publicity](github_publicity.png)
 
-2. Next, we’ll need to set the deployment branch for the Github User Page. If your repo is named `<USERNAME>.github.io`, Github Pages is enabled by default with public repos or private repos if you're on an upgraded plan.  This setting can be found at **Settings > Options > Github Pages**. We’ll select the source of the page as the `master` branch.
+2. Next, we’ll need to set the source of the Github User Page. If your repo is named `<USERNAME>.github.io`, Github Pages is enabled by default with public repos or private repos if you're on an upgraded plan.  This setting can be found at **Settings > Options > Github Pages**. We’ll select the source of the page as the `master` branch.
 
     ![Github Pages Branch](github_pages_branch.png)
 
