@@ -36,6 +36,10 @@
 	<script type="text/javascript" src="/blog/scripts/prism.js" async></script>
 	
 	
+	<link rel="canonical" href="https://my.scotch.io/posts/47227" />
+	
+
+	
 	<link href="" rel="alternate"
 		type="application/rss+xml" title="Zara&#39;s Code Adventures" />
 </head>
@@ -70,7 +74,7 @@
         
         
 
-<p>One thing that sets you apart when looking for a developer gig a portfolio website. It gives potential clients or employers insight into who you are as a professional, the kind of work you’ve done in the past and what you’re currently up to. Unfortunately, a common impediment that keeps many — including most recently myself — from having portfolio sites is dreading all the work, planning and thought that goes into building a site from scratch, which hosting provider to choose, if the domain you want is available, how much hosting and a domain will set you back (especially if you’re strapped for cash) etc.</p>
+<p>One thing that sets you apart when looking for a developer gig is a portfolio website. It gives potential clients or employers insight into who you are as a professional, the kind of work you’ve done in the past and what you’re currently up to. Unfortunately, a common impediment that keeps many — including most recently myself — from having portfolio sites is dreading all the work, planning and thought that goes into building a site from scratch, which hosting provider to choose, if the domain you want is available, how much hosting and a domain will set you back (especially if you’re strapped for cash) etc.</p>
 
 <p>In this tutorial, I’m going to walk you through how to set up and host your portfolio site fairly quickly and at no cost.</p>
 
@@ -87,7 +91,7 @@
 <li>It’s a gateway to the rest of your presence on the internet as a developer. You could point people to your Dribble, Github, LinkedIn, Codepen, Dev.to, Medium, Youtube, Twitch and your various other developer accounts.</li>
 </ol>
 
-<h2 id="requirements">Requirements</h2>
+<h2 id="prerequisites">Prerequisites</h2>
 
 <ol>
 <li><strong>Github account:</strong>  <a href="https://github.com/join">Here’s a link</a>  to create one if you don’t already have one.</li>
@@ -173,7 +177,7 @@ theme = &quot;hugo-uilite”
 <p>Here&rsquo;s one way to tweak the <strong>hugo-uilite</strong> theme:</p>
 
 <ol>
-<li><p>Start by restoring the theme to its original glory. For the <strong>hugo-uilite</strong> theme, we’ll do this by copying some files from its <em>exampleSite</em> folder. If your theme seems broken at first, the theme’s README should be the first place to look for a solution. If nothing is specified — like in our case — look to the <em>exampleSite</em> folder of your theme’s repo. To fix the site, copy missing files from the data folder of <em>exampleSite</em> to the data folder to the portfolio site.</p>
+<li><p>Start by restoring the theme to its original glory. For the <strong>hugo-uilite</strong> theme, we’ll do this by copying some files from its <em>exampleSite</em> folder. If your theme seems broken at first, the theme’s README should be the first place to look for a solution. If nothing is specified — like in our case — look to the <em>exampleSite</em> folder of your theme’s repo. To fix the site, copy missing files from the data folder of <em>exampleSite</em> to the data folder of the portfolio site.</p>
 
 <pre><code class="language-bash">mkdir data
 cp themes/hugo-uilite/exampleSite/data/* data/
@@ -192,7 +196,7 @@ cp themes/hugo-uilite/exampleSite/data/* data/
 
 <p>The Hugo server picks up the changes and on reload, our site now looks just as it did on the <a href="https://themes.gohugo.io/theme/hugo-uilite/">theme&rsquo;s demo page</a>.</p></li>
 
-<li><p>Next, we’ll add professional information to the site. As mentioned above, these are several details you could include. Styling changes to the theme can also be made. Below I&rsquo;ll describe what I did to modify the theme picked to look like the site screenshotted below. The changes are large and would be unnecessary to describe in detail since not all themes are made the same. So instead, here&rsquo;s a summary.</p>
+<li><p>Next, we’ll add professional information to the site. As mentioned above, there are several details you could include. Styling changes to the theme can also be made. Below I&rsquo;ll describe what I did to modify the theme picked to look like the site screenshotted below. The changes are large and would be unnecessary to describe in detail since not all themes are made the same. So instead, here&rsquo;s a summary:</p>
 
 <p><strong>a. Changed the theme&rsquo;s color palette</strong></p>
 
@@ -225,7 +229,7 @@ cp themes/hugo-uilite/exampleSite/data/* data/
 <ol>
 <li>Commit your changes to the master branch.</li>
 <li>Create a repo on Github to host your site&rsquo;s source code, for example, called <code>&lt;PORTFOLIO_NAME&gt;</code>. You can make this repo private as it just serves to store your site&rsquo;s source code.</li>
-<li>Push your latest commits to this repo.</li>
+<li>Push your latest changes to this repo.</li>
 <li>Create a second repo from which your site will be hosted. It should have the name <code>&lt;USERNAME&gt;.github.io</code>.</li>
 <li>Locally, <code>cd</code> back into the <code>&lt;PORTFOLIO_NAME&gt;</code> folder and check that you’re happy with how your site looks like by running the Hugo server. If you’re satisfied with the resulting portfolio, kill the server.</li>
 
@@ -234,7 +238,7 @@ cp themes/hugo-uilite/exampleSite/data/* data/
 <pre><code class="language-git">git submodule add -b master git@github.com:&lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io.git public
 </code></pre></li>
 
-<li><p>We may often make changes to our site and as such, we’ll need to make deployment of our portfolio easier the next time around. Hugo provides a script that you can add to your <code>&lt;PORTFOLIO_NAME&gt;</code> project and simply run with a commit message to push your changes to your origin and deploy your portfolio site. You can find the script named <strong>deploy.sh</strong>  <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">here.</a>  Once you’ve copied the script, all you need to do to make your first deployment of your portfolio site is:</p>
+<li><p>We may often make changes to our site and as such, we’ll need to make deployment of our portfolio easier the next time around. Hugo provides a script that pushes your changes to your origin (with an optional commit message) and deploys your portfolio site. It can be added to your <code>&lt;PORTFOLIO_NAME&gt;</code> project and simply run when you make a change. The script named <strong>deploy.sh</strong> can be found <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">here.</a>  Once you’ve copied the script over, all you need to do to make the first deployment of your portfolio site is:</p>
 
 <pre><code class="language-bash"># Make the script executable
 chmod +x deploy.sh
@@ -250,11 +254,11 @@ chmod +x deploy.sh
 <p>We’re going to be hosting the portfolio we created on a <strong>User Page</strong> which will be found at the <code>&lt;USERNAME&gt;.github.io</code> URL. We’ll be hosting directly from the <strong>master</strong>  branch of the <code>&lt;USERNAME&gt;.github.io</code> repo we created in step 5. To do this:</p>
 
 <ol>
-<li><p>First, the repo has to be public if you are on the Github&rsquo;s free plan (you can host from a private repo if you&rsquo;re on an upgraded plan). If your <code>&lt;USERNAME&gt;.github.io</code> repo is private, head on over to <strong>Settings &gt; Options &gt; Danger Zone</strong> to change it back to public.</p>
+<li><p>First, the repo has to be public if you are on Github&rsquo;s free plan (you can host from a private repo if you&rsquo;re on an upgraded plan). If your <code>&lt;USERNAME&gt;.github.io</code> repo is private, head on over to <strong>Settings &gt; Options &gt; Danger Zone</strong> to change it back to public.</p>
 
 <p><img src="github_publicity.png" alt="Github Repo Publicity" /></p></li>
 
-<li><p>Next, we’ll need to set the source for the Github User Page. If your repo is named <code>&lt;USERNAME&gt;.github.io</code>, Github Pages is enabled by default with public repos or private repos if you&rsquo;re on an upgraded plan.  This setting can be found at <strong>Settings &gt; Options &gt; Github Pages</strong>. We’ll select the source of the page as the <code>master</code> branch.</p>
+<li><p>Next, we’ll need to set the deployment branch for the Github User Page. If your repo is named <code>&lt;USERNAME&gt;.github.io</code>, Github Pages is enabled by default with public repos or private repos if you&rsquo;re on an upgraded plan.  This setting can be found at <strong>Settings &gt; Options &gt; Github Pages</strong>. We’ll select the source of the page as the <code>master</code> branch.</p>
 
 <p><img src="github_pages_branch.png" alt="Github Pages Branch" /></p></li>
 
@@ -303,7 +307,7 @@ chmod +x deploy.sh
 
         		<footer>
 			<span>
-			&copy; <time datetime="2019-09-15 14:18:58.538429 &#43;0300 EAT m=&#43;0.083387219">2019</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2019-09-15 20:42:53.402213 &#43;0300 EAT m=&#43;0.083056097">2019</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 
