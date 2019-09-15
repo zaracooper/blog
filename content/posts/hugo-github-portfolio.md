@@ -22,7 +22,7 @@ Yes. Here’s why:
 5. It allows you to showcase your style. 
 6. It’s a gateway to the rest of your presence on the internet as a developer. You could point people to your Dribble, Github, LinkedIn, Codepen, Dev.to, Medium, Youtube, Twitch and your various other developer accounts.
 
-## Requirements
+## Prerequisites
 
 1. **Github account:**  [Here’s a link](https://github.com/join)  to create one if you don’t already have one.
 2. **Hugo installed:** Installation instructions for [macOS](https://gohugo.io/getting-started/installing#macos) , [Windows](https://gohugo.io/getting-started/installing#windows) and [Linux](https://gohugo.io/getting-started/installing#linux).
@@ -97,7 +97,7 @@ So this part is subjective and depends on your theme, the content you’d like t
 
 Here's one way to tweak the **hugo-uilite** theme:
 
-1. Start by restoring the theme to its original glory. For the **hugo-uilite** theme, we’ll do this by copying some files from its *exampleSite* folder. If your theme seems broken at first, the theme’s README should be the first place to look for a solution. If nothing is specified — like in our case — look to the *exampleSite* folder of your theme’s repo. To fix the site, copy missing files from the data folder of *exampleSite* to the data folder to the portfolio site.
+1. Start by restoring the theme to its original glory. For the **hugo-uilite** theme, we’ll do this by copying some files from its *exampleSite* folder. If your theme seems broken at first, the theme’s README should be the first place to look for a solution. If nothing is specified — like in our case — look to the *exampleSite* folder of your theme’s repo. To fix the site, copy missing files from the data folder of *exampleSite* to the data folder of the portfolio site.
 
     ```bash
     mkdir data
@@ -116,9 +116,7 @@ Here's one way to tweak the **hugo-uilite** theme:
     ```
     The Hugo server picks up the changes and on reload, our site now looks just as it did on the [theme's demo page](https://themes.gohugo.io/theme/hugo-uilite/).
 
-2. Next, we’ll add professional information to the site. As mentioned above, these are several details you could include. Styling changes to the theme can also be made. Below I'll describe what I did to modify the theme picked to look like the site screenshotted below. The changes are large and would be unnecessary to describe in detail since not all themes are made the same. So instead, here's a summary.
-
-
+2. Next, we’ll add professional information to the site. As mentioned above, there are several details you could include. Styling changes to the theme can also be made. Below I'll describe what I did to modify the theme picked to look like the site screenshotted below. The changes are large and would be unnecessary to describe in detail since not all themes are made the same. So instead, here's a summary:
 
     **a. Changed the theme's color palette**
     : - I added a CSS file with additional styling to the `static` folder. 
@@ -148,14 +146,13 @@ Here's one way to tweak the **hugo-uilite** theme:
 
 This is what the final site looks like.
 
-
 ![Mostly Finished Website](mostly_finished_website.png)
 
 # Step 5: Create your repos on Github and push your source code
 
 1. Commit your changes to the master branch.
 2. Create a repo on Github to host your site's source code, for example, called `<PORTFOLIO_NAME>`. You can make this repo private as it just serves to store your site's source code.
-3. Push your latest commits to this repo.
+3. Push your latest changes to this repo.
 4. Create a second repo from which your site will be hosted. It should have the name `<USERNAME>.github.io`.
 5. Locally, `cd` back into the `<PORTFOLIO_NAME>` folder and check that you’re happy with how your site looks like by running the Hugo server. If you’re satisfied with the resulting portfolio, kill the server.
 6. We next have to link the `public` folder generated when we build the site locally to the `<USERNAME>.github.io` repo we created. We’ll make the `<USERNAME>.github.io` repo the remote origin of the public folder and also make the `public` folder a submodule of our `<PORTFOLIO_NAME>` project. Do this by running:
@@ -164,8 +161,7 @@ This is what the final site looks like.
     git submodule add -b master git@github.com:<USERNAME>/<USERNAME>.github.io.git public
     ```
 
-7. We may often make changes to our site and as such, we’ll need to make deployment of our portfolio easier the next time around. Hugo provides a script that you can add to your `<PORTFOLIO_NAME>` project and simply run with a commit message to push your changes to your origin and deploy your portfolio site. You can find the script named **deploy.sh**  [here.](https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script)  Once you’ve copied the script, all you need to do to make your first deployment of your portfolio site is:
-
+7. We may often make changes to our site and as such, we’ll need to make deployment of our portfolio easier the next time around. Hugo provides a script that pushes your changes to your origin (with an optional commit message) and deploys your portfolio site. It can be added to your `<PORTFOLIO_NAME>` project and simply run when you make a change. The script named **deploy.sh** can be found [here.](https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script)  Once you’ve copied the script over, all you need to do to make the first deployment of your portfolio site is:
 
     ```bash
     # Make the script executable
@@ -179,11 +175,11 @@ If you’re unfamiliar with or interested in Github User Pages you could read ab
 
 We’re going to be hosting the portfolio we created on a **User Page** which will be found at the `<USERNAME>.github.io` URL. We’ll be hosting directly from the **master**  branch of the `<USERNAME>.github.io` repo we created in step 5. To do this:
 
-1. First, the repo has to be public if you are on the Github's free plan (you can host from a private repo if you're on an upgraded plan). If your `<USERNAME>.github.io` repo is private, head on over to **Settings > Options > Danger Zone** to change it back to public.
+1. First, the repo has to be public if you are on Github's free plan (you can host from a private repo if you're on an upgraded plan). If your `<USERNAME>.github.io` repo is private, head on over to **Settings > Options > Danger Zone** to change it back to public.
 
     ![Github Repo Publicity](github_publicity.png)
 
-2. Next, we’ll need to set the source for the Github User Page. If your repo is named `<USERNAME>.github.io`, Github Pages is enabled by default with public repos or private repos if you're on an upgraded plan.  This setting can be found at **Settings > Options > Github Pages**. We’ll select the source of the page as the `master` branch.
+2. Next, we’ll need to set the deployment branch for the Github User Page. If your repo is named `<USERNAME>.github.io`, Github Pages is enabled by default with public repos or private repos if you're on an upgraded plan.  This setting can be found at **Settings > Options > Github Pages**. We’ll select the source of the page as the `master` branch.
 
     ![Github Pages Branch](github_pages_branch.png)
 
