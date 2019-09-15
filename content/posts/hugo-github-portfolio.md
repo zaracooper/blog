@@ -5,9 +5,10 @@ draft: false
 author: "Zara Cooper"
 summary: "A tutorial on how to create a developer portfolio using the Hugo Static Site Generation Tool and Github User Pages."
 image: "Hugo-Github-Pages-Portfolio.jpg"
+canonicalURL: "https://my.scotch.io/posts/47227"
 ---
 
-One thing that sets you apart when looking for a developer gig a portfolio website. It gives potential clients or employers insight into who you are as a professional, the kind of work you’ve done in the past and what you’re currently up to. Unfortunately, a common impediment that keeps many — including most recently myself — from having portfolio sites is dreading all the work, planning and thought that goes into building a site from scratch, which hosting provider to choose, if the domain you want is available, how much hosting and a domain will set you back (especially if you’re strapped for cash) etc.
+One thing that sets you apart when looking for a developer gig is a portfolio website. It gives potential clients or employers insight into who you are as a professional, the kind of work you’ve done in the past and what you’re currently up to. Unfortunately, a common impediment that keeps many — including most recently myself — from having portfolio sites is dreading all the work, planning and thought that goes into building a site from scratch, which hosting provider to choose, if the domain you want is available, how much hosting and a domain will set you back (especially if you’re strapped for cash) etc.
 
 In this tutorial, I’m going to walk you through how to set up and host your portfolio site fairly quickly and at no cost.
 

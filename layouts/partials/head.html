@@ -41,6 +41,10 @@
 	{{ end }}
 	{{ end -}}
 
+	{{ if .Params.canonicalUrl }}
+	<link rel="canonical" href="{{ .Params.canonicalURL }}" />
+	{{ end }}
+
 	<!-- RSS -->
 	<link href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" rel="alternate"
 		type="application/rss+xml" title="{{ .Site.Title }}" />
