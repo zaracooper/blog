@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Zara&#39;s Code Adventures</title>
-    <link>https://zaracooper.github.io/blog/</link>
-    <description>Recent content on Zara&#39;s Code Adventures</description>
+    <title>Posts on Zara&#39;s Code Adventures</title>
+    <link>https://zaracooper.github.io/blog/posts/</link>
+    <description>Recent content in Posts on Zara&#39;s Code Adventures</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 06 Sep 2019 16:05:32 +0300</lastBuildDate>
     
-	<atom:link href="https://zaracooper.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://zaracooper.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

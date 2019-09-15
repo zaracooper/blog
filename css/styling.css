@@ -6,11 +6,13 @@
     font-style: normal;
 }
 
-.catalogue-title, .post-title {
+.catalogue-title,
+.post-title {
     color: #D34E24;
 }
 
-.catalogue-line, .post-line {
+.catalogue-line,
+.post-line {
     border-color: #F8AA02;
 }
 
@@ -26,7 +28,8 @@
     color: #D34E24;
 }
 
-.nav-container, .nav {
+.nav-container,
+.nav {
     background-color: transparent;
 }
 
@@ -48,6 +51,23 @@
     color: #2b9eb3;
 }
 
-p, footer, time, .pagination  {
-    font-family:'Avenir';
+ul,
+ol,
+p,
+footer,
+time,
+.pagination {
+    font-family: 'Avenir' !important;
+}
+
+p {
+    font-size: 17px;
+}
+
+img[src$='#bordered-image'] {
+    border: 1px solid #021a40;
+}
+
+.post-title {
+    font-size: 2rem;
 }
