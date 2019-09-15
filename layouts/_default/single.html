@@ -1,29 +1,29 @@
 {{ define "main" }}
 
 <main>
-	<div class="post">
-		{{ partial "single/post-info.html" . }}
-		{{ partial "single/title.html" . }}
+    <div class="post">
+        <img src="{{ .Params.Image }}" /> 
+        
+        {{ partial "single/post-info.html" . }} 
+        
+        {{ partial "single/title.html" . }} 
+        
+        {{ partial "single/header.html" . }} 
+        
+        {{ .Content }} 
+        
+        {{ partial "single/footer.html" . }}
+    </div>
 
-		{{ partial "single/header.html" . }}
+    {{ template "_internal/disqus.html" . }}
 
-		{{ .Content }}
+    <div class="pagination">
+        {{- if .PrevPage }}
+        <a href="{{ .PrevPage.RelPermalink }}" class="left arrow">&#8592;</a> {{- end }} {{- if .NextPage }}
+        <a href="{{ .NextPage.RelPermalink }}" class="right arrow">&#8594;</a> {{- end }}
 
-		{{ partial "single/footer.html" . }}
-	</div>
-
-	{{ template "_internal/disqus.html" . }}
-
-	<div class="pagination">
-		{{- if .PrevPage }}
-		<a href="{{ .PrevPage.RelPermalink }}" class="left arrow">&#8592;</a>
-		{{- end }}
-		{{- if .NextPage }}
-		<a href="{{ .NextPage.RelPermalink }}" class="right arrow">&#8594;</a>
-		{{- end }}
-
-		<a href="#" class="top">Top</a>
-	</div>
+        <a href="#" class="top">Top</a>
+    </div>
 </main>
 
 {{ end }}
