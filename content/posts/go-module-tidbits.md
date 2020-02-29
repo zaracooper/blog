@@ -1,7 +1,7 @@
 ---
 title: "18 Essential Go Module tidbits for a newbie"
 date: 2020-02-24T21:33:55+03:00
-draft: false
+draft: true
 image: "go-modules.jpg"
 author: "Zara Cooper"
 summary: "An exhaustive and simple walkthrough of Go Modules in 18 tidbits tailored for beginners."
