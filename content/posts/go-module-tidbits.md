@@ -93,7 +93,7 @@ go.mod is a file that is located within your module root. It is by default autom
 - excluded dependencies
 
 **d. go.sum**
-The go.sum file is used to authenticate your dependencies to ensure that no unexpected changes were introduced to them. This guarantees that builds are repeatable i.e. given the exact same source code and versioned dependencies (and other constant factors), consecutive builds will result in the same build all the time. 
+The go.sum file is used to authenticate your dependencies to ensure that no unexpected changes were introduced to them. This guarantees that builds are repeatable i.e. given the same source code and versioned dependencies (and other constant factors), consecutive builds will result in the same build all the time. 
 
 The go command creates cryptographic checksums of a module's dependencies and go.mod files. It then stores them in the go.sum file. You can read more about the contents of a go.sum file look are at [tidbit 10](#10-the-go-sum-file).
 
@@ -149,7 +149,7 @@ exclude outdated/dependency v3.4.1
 
 The go command creates the go.mod file when a module is initialized. It then populates it with the latest versions of dependencies referenced in your source code. These dependencies can also come from a list of dependencies created by a dependency management tool like godep. At least [7 other dependency management tools](https://tip.golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables) are supported. 
 
-This file can be modified by the **go mod** command but other go command like **go build**, **go test**, etc. can add to the file but never remove from it. go.mod is line-oriented and each line should feature a directive unless creating blocks from adjacent lines with the same verb. For example:
+This file can be modified by the **go mod** command but other go commands like **go build**, **go test**, etc. can add to the file but never remove from it. go.mod is line-oriented and each line should feature a directive unless creating blocks from adjacent lines with the same verb. For example:
 
 ```text
 require(
@@ -168,7 +168,7 @@ In your go.mod, different kinds of dependencies are listed differently depending
 These are dependencies that are directly imported by the current module. They are unmarked in the go.mod file. 
 
 #### b. Indirect Dependencies
-These are unlisted dependencies of the direct dependencies. Some dependencies won't list their own dependencies. So the main module has to list them instead. Indirect dependencies are marked in the go.mod with an `//indirect` comment adjacent to its listing. Some indirect dependencies are listed when a direct dependency's dependencies are upgraded because this goes against its own stated requirements. This is what an indirect dependency line would look like in a go.mod file:
+These are unlisted dependencies of the direct dependencies. Some dependencies won't list their dependencies. So the main module has to list them instead. Indirect dependencies are marked in the go.mod with an `//indirect` comment adjacent to its listing. Some indirect dependencies are listed when a direct dependency's dependencies are upgraded because this goes against its stated requirements. This is what an indirect dependency line would look like in a go.mod file:
 
 `require indirect/dependency/v3  v3.3.1 //indirect`
 
@@ -282,7 +282,7 @@ You can add dependencies to your module in these ways:
 
 **c.** Test dependencies are added to the module's go.mod when running `go test`.
 
-**d.** A number of other go commands scan your source code for missing requirements then add them to your go.mod when running. Commands like these include `go list` etc. More about this is touched on at [tidbit 12](12-how-the-go-command-interacts-with-modules). 
+**d.** Several other go commands scan your source code for missing requirements then add them to your go.mod when running. Commands like these include `go list` etc. More about this is touched on at [tidbit 12](12-how-the-go-command-interacts-with-modules). 
 
 **e.** Use `go mod download` to add a module dependency to your local cache to use before you add it to your source code. 
 
@@ -310,7 +310,7 @@ Releases that use Go modules follow 3 rules to comply with *semantic import vers
 
 **b.** v0 and v1 releases should not include their major version numbers in their module and import paths. **v0** releases omit `v0` because these versions are considered as initial, unstable and still under development as progress is made towards **v1**. **v1** releases just omit `v1` by default.
 
-**c.** v2+ releases should include their major version numbers in their module and import paths. This is required by the go command in order to preserve import compatibility as mentioned above.
+**c.** v2+ releases should include their major version numbers in their module and import paths. This is required by the go command to preserve import compatibility as mentioned above.
 
 Below are some examples:
 
@@ -332,14 +332,14 @@ There are some benefits to semantic import versioning:
 
 1. It prevents the diamond dependency import problem. You can read more about it [here](https://research.swtch.com/vgo-import).
 2. It's possible to use two versions of a module with different major version numbers within the same codebase.
-3. It helps package developers easily identify dependencies early that may be problematic to work with in the future. This is because using v0, pre-release, incompatible or pseudo versions do not guarantee backward compatibility.
+3. It helps package developers easily identify dependencies early that may be problematic to work with in the future. This is because using v0, pre-release, incompatible or pseudo versions does not guarantee backward compatibility.
 
 ## 14. Versioning and releasing your module <a name="14-versioning-and-releasing-your-module"></a>
 To prepare your module for versioning, you need to ensure that you've:
 
 1. initialized a repository for your module. Git, Mercurial, Bazaar among others are supported. 
 2. initialized your module and have a **go.mod** file in your module root.
-3. added a license if your intent is to publish your module. 
+3. added a license if you intend to publish your module. 
 
 If this is the first time your code is opting into module use, two things need to be considered before proceeding:
 
@@ -487,7 +487,7 @@ Some best practices to follow when versioning and releasing your v2+ modules:
 1. Always consider your module's users before deciding to break compatibility. It's additional work for your users to adopt changes you make to your codebase. 
 2. Consider the maintainers of your codebase since it's also more work for them to constantly maintain new and older versions of your dependency. 
 3. Continually maintain your module to keep its consumers from using outdated code.
-4. Always have a good reason to make breaking changes in order to justify reasons 1 through 3. 
+4. Always have a good reason to make breaking changes to justify reasons 1 through 3. 
 
 ## 15. Vendoring <a name="15-vendoring"></a>
 
@@ -518,7 +518,7 @@ Tips when handling your module's users:
 
 1. Encourage users to import packages directly in code as this is easier than using `go get`. The go command automatically adds new imports to go.mod as dependencies. 
 2. Have options for your non-module users who may want to consume your module. If your module is in v2+, you can go one of two ways: the major subdirectory strategy which is good for most Go versions or the major branch strategy which works for Go 1.9.7+, 1.10.3+, and 1.11+ codebases. Non-module users have very few problems using v0 and v1 module dependencies so there's not much to worry about if your module is in v0 or v1.  
-3. It's possible for your users to use multiple versions of your module in their codebase. This is especially helpful if your users are slowly migrating dependencies in a large codebase or to fill deficiencies between different versions of your module.
+3. Your users can use multiple versions of your module in their codebase. This is especially helpful if your users are slowly migrating dependencies in a large codebase or to fill deficiencies between different versions of your module.
 
 ## 17. The go mod command <a name="17-the-go-mod-command"></a>
 The `go mod` is used to perform operations on modules. The eight `go mod` commands are:
@@ -526,7 +526,7 @@ The `go mod` is used to perform operations on modules. The eight `go mod` comman
 Command | Operation | Usage
 --- | --- | ---
 `download` | Downloads a module to local cache (`GOPATH/pkg/mod/cache`). A specific module version can be requested using the query `path@version`. This is mostly used when you'd like to preload dependencies. To get a more detailed overview of the module you are downloading use the `-json` flag.  | `go mod download [flags] [path]@[version]...`
-`edit` | Used to edit a **go.mod** file. It reads the **go.mod** file then writes changes to the same file or another specified file. Is mostly useful for tools or scripts. The command does not do any module lookup so determining any errors related to the modified file contents is up to you. With this command you can:<br>- format the go.mod (`-fmt`)<br> - change the module path (`-module newPath`)<br>- require a dependency (`-require=path@version`)<br>- drop a required dependency (`-droprequire=path@version`)<br>- replace a dependency with another different dependency (`-replace oldpath@version=newpath@version`)<br>- drop a replacement dependency (`-dropreplace=module@version`)<br>- exclude a dependency (`-exclude=path@version`)<br>- drop an excluded dependency(`-dropexclude=path@version`)<br>- change the Go version (`-go=version`)<br>- prints the modified contents of the go.mod without writing the results back to the source go.mod (`-print`)<br>- prints the modified contents of the go.mod  in a json format without writing the results back to the source go.mod (`-json`) | `go mod edit [flags] [target go.mod]`
+`edit` | Used to edit a **go.mod** file. It reads the **go.mod** file then writes changes to the same file or another specified file. It is mostly useful for tools or scripts. The command does not do any module lookup so determining any errors related to the modified file contents is up to you. With this command, you can:<br>- format the go.mod (`-fmt`)<br> - change the module path (`-module newPath`)<br>- require a dependency (`-require=path@version`)<br>- drop a required dependency (`-droprequire=path@version`)<br>- replace a dependency with another different dependency (`-replace oldpath@version=newpath@version`)<br>- drop a replacement dependency (`-dropreplace=module@version`)<br>- exclude a dependency (`-exclude=path@version`)<br>- drop an excluded dependency(`-dropexclude=path@version`)<br>- change the Go version (`-go=version`)<br>- prints the modified contents of the go.mod without writing the results back to the source go.mod (`-print`)<br>- prints the modified contents of the go.mod  in a JSON format without writing the results back to the source go.mod (`-json`) | `go mod edit [flags] [target go.mod]`
 `graph` | prints a text version of the module requirement graph which is a list of your module's direct and indirect dependencies. | `go mod graph`
 `init` | initializes a new module by creating a **go.mod** and populating it with the module path, a Go version, and a list of dependencies. If you are outside GOPATH or not within a repository you need to provide a module path as it's not possible to infer one and this operation will fail without it. The resulting go.mod is written to the current directory. | `go mod init [module path]`
 `tidy` | determines missing and unused module dependencies then adds and removes them from your go.mod and go.sum. Use the `-v` flag for a detailed overview of this command's results. | ` go mod tidy [-v]`
@@ -553,7 +553,7 @@ It is served at [sum.golang.org](https://sum.golang.org). It is a global tamper-
 ### 3. The Module Index
 It is served at [index.golang.org](https://index.golang.org). It's a feed of newly published module versions that [proxy.golang.org](https://proxy.golang.org) makes available. It's helpful when separately caching what's available to [proxy.golang.org](https://proxy.golang.org) on your own. 
 
-When working with private modules, you can instruct the go command to not use the module mirror or checksum database. Alternatively, you could host your own versions of the above services on a private server. Substitutes you could use are like [Thumbai](https://thumbai.app/), [Athens](https://github.com/gomods/athens), [Goproxy](https://github.com/goproxy/goproxy), and [JFrog Artifactory](https://jfrog.com/artifactory/). To change what the go command defaults to for the module mirror and checksum DB, you will need to change some or all of the below environment variables:
+When working with private modules, you can instruct the go command to not use the module mirror or checksum database. Alternatively, you could host your versions of the above services on a private server. Substitutes you could use are like [Thumbai](https://thumbai.app/), [Athens](https://github.com/gomods/athens), [Goproxy](https://github.com/goproxy/goproxy), and [JFrog Artifactory](https://jfrog.com/artifactory/). To change what the go command defaults to for the module mirror and checksum DB, you will need to change some or all of the below environment variables:
 
  Environment Variable | Purpose | Format | Example
 --- | --- | --- | ---
@@ -564,7 +564,7 @@ When working with private modules, you can instruct the go command to not use th
 `GOSUMDB` | Controls which checksum database the go command should use or whether or not to use a checksum database. | - Name of the checksum database with an optional public key and URL<br>-  `off` to disallow checksum database consultation. | `GOSUMDB=`<br>`sum.privateorg.com`<br>`+<publickey> `<br>`https://sum.privateorg.com`
 
 ## Conclusion
-Modules have vastly simplified dependency management in Go. It's important to have a detailed understanding of how they work in order to take advantage of all the features they provide. It's my hope that this article provided some useful information to gophers who are new to modules.   
+Modules have vastly simplified dependency management in Go. It's important to have a detailed understanding of how they work to take advantage of all the features they provide. I hope that this article provided some useful information to gophers who are new to modules.   
 
 ---
 
