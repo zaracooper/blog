@@ -493,9 +493,9 @@ Some best practices to follow when versioning and releasing your v2+ modules:
 
 Vendoring is the process of fetching packages that your codebase depends on and storing them usually in the codebase directory. In Go, vendored packages are stored in the *vendor* directory. However by default, when using modules the *vendor* directory is ignored by the go command. To vendor dependencies for your module, you run:
 
-    ```bash
-    go mod vendor
-    ```
+```bash
+go mod vendor
+```
 
 This will create a vendor directory in your module root with all your dependencies stored in them.
 
@@ -516,7 +516,7 @@ Tips for maintainers:
 
 Tips when handling your module's users:
 
-1. Encourage users to import packages directly in code as this is easier than using `go get. The go command automatically adds new imports to go.mod as dependencies. 
+1. Encourage users to import packages directly in code as this is easier than using `go get`. The go command automatically adds new imports to go.mod as dependencies. 
 2. Have options for your non-module users who may want to consume your module. If your module is in v2+, you can go one of two ways: the major subdirectory strategy which is good for most Go versions or the major branch strategy which works for Go 1.9.7+, 1.10.3+, and 1.11+ codebases. Non-module users have very few problems using v0 and v1 module dependencies so there's not much to worry about if your module is in v0 or v1.  
 3. It's possible for your users to use multiple versions of your module in their codebase. This is especially helpful if your users are slowly migrating dependencies in a large codebase or to fill deficiencies between different versions of your module.
 
