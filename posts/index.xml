@@ -6,19 +6,10 @@
     <description>Recent content in Posts on Zara&#39;s Code Adventures</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 24 Feb 2020 21:33:55 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 06 Sep 2019 16:05:32 +0300</lastBuildDate>
     
 	<atom:link href="https://zaracooper.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>18 Essential Go Module tidbits for a newbie</title>
-      <link>https://zaracooper.github.io/blog/posts/go-module-tidbits/</link>
-      <pubDate>Mon, 24 Feb 2020 21:33:55 +0300</pubDate>
-      
-      <guid>https://zaracooper.github.io/blog/posts/go-module-tidbits/</guid>
-      <description>An exhaustive and simple walkthrough of Go Modules in 18 tidbits tailored for beginners.</description>
-    </item>
     
     <item>
       <title>Create your developer portfolio using Hugo and Github Pages</title>
