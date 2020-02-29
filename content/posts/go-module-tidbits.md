@@ -4,7 +4,7 @@ date: 2020-02-24T21:33:55+03:00
 draft: false
 image: "go-modules.jpg"
 author: "Zara Cooper"
-summary: "A walkthrough of Go Modules in 18 tidbits."
+summary: "An exhaustive and simple walkthrough of Go Modules in 18 tidbits tailored for beginners."
 ---
 
 In 2018, Go 1.11 was released and with it came Go module support. Since then many Go developers have created, used, and published modules. Creating a module is pretty easy, but figuring out how to version your module, manage its dependencies and understanding what all the numbers and words in go.mod and go.sum files mean can be confusing. In this article, I'll walk you through 18 tidbits that will make creating and managing your Go modules easier. 
