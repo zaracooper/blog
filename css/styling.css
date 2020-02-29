@@ -71,3 +71,20 @@ img[src$='#bordered-image'] {
 .post-title {
     font-size: 2rem;
 }
+
+table {
+    border-collapse: collapse;
+  }
+
+table, th, td {
+    border: 1px solid lightgray; 
+}
+
+th, td {
+    padding: 7px;
+}
+
+table {
+    margin-bottom: 35px;
+    font-family: 'Avenir' !important;
+}
