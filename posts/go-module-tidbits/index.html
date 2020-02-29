@@ -649,9 +649,7 @@ cp go.mod v3/go.mod
 
 <p>Vendoring is the process of fetching packages that your codebase depends on and storing them usually in the codebase directory. In Go, vendored packages are stored in the <em>vendor</em> directory. However by default, when using modules the <em>vendor</em> directory is ignored by the go command. To vendor dependencies for your module, you run:</p>
 
-<pre><code>```bash
-go mod vendor
-```
+<pre><code class="language-bash">go mod vendor
 </code></pre>
 
 <p>This will create a vendor directory in your module root with all your dependencies stored in them.</p>
@@ -678,7 +676,7 @@ go mod vendor
 <p>Tips when handling your module&rsquo;s users:</p>
 
 <ol>
-<li>Encourage users to import packages directly in code as this is easier than using `go get. The go command automatically adds new imports to go.mod as dependencies.</li>
+<li>Encourage users to import packages directly in code as this is easier than using <code>go get</code>. The go command automatically adds new imports to go.mod as dependencies.</li>
 <li>Have options for your non-module users who may want to consume your module. If your module is in v2+, you can go one of two ways: the major subdirectory strategy which is good for most Go versions or the major branch strategy which works for Go 1.9.7+, 1.10.3+, and 1.11+ codebases. Non-module users have very few problems using v0 and v1 module dependencies so there&rsquo;s not much to worry about if your module is in v0 or v1.<br /></li>
 <li>It&rsquo;s possible for your users to use multiple versions of your module in their codebase. This is especially helpful if your users are slowly migrating dependencies in a large codebase or to fill deficiencies between different versions of your module.</li>
 </ol>
@@ -866,7 +864,7 @@ go mod vendor
 
         		<footer>
 			<span>
-			&copy; <time datetime="2020-02-29 07:19:42.814275 &#43;0300 EAT m=&#43;0.126185254">2020</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2020-02-29 07:27:20.5705 &#43;0300 EAT m=&#43;0.095815916">2020</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 
