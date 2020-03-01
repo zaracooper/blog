@@ -1,10 +1,10 @@
 ---
 title: "18 Essential Go Module tidbits for a newbie"
 date: 2020-02-24T21:33:55+03:00
-draft: true
+draft: false
 image: "go-modules.jpg"
 author: "Zara Cooper"
-summary: "An exhaustive and simple walkthrough of Go Modules in 18 tidbits tailored for beginners."
+summary: "An in-depth and simple walkthrough of Go Modules in 18 tidbits tailored for beginners."
 ---
 
 In 2018, Go 1.11 was released and with it came Go module support. Since then many Go developers have created, used, and published modules. Creating a module is pretty easy, but figuring out how to version your module, manage its dependencies and understanding what all the numbers and words in go.mod and go.sum files mean can be confusing. In this article, I'll walk you through 18 tidbits that will make creating and managing your Go modules easier. 
@@ -14,20 +14,20 @@ In 2018, Go 1.11 was released and with it came Go module support. Since then man
 ⌲ [2. Go versions that support modules](#2-go-versions-that-support-modules)<br>
 ⌲ [3. Enabling modules on the go command](#3-enabling-modules-on-the-go-command)<br>
 ⌲ [4. SemVer](#4-semver)<br>
-⌲ [5. Module Structure](#5-module-structure)<br>
+⌲ [5. Module structure](#5-module-structure)<br>
 ⌲ [6. Creating a new module](#6-creating-a-new-module)<br>
 ⌲ [7. The go.mod file](#7-the-go-mod-file)<br>
-⌲ [8. The types of dependencies in your go.mod](#8-the-types-of-dependencies-in-your-go-mod)<br>
-⌲ [9. Module Queries](#9-module-queries)<br>
+⌲ [8. The types of dependencies in the go.mod file](#8-the-types-of-dependencies-in-the-go-mod-file)<br>
+⌲ [9. Module queries](#9-module-queries)<br>
 ⌲ [10. The go.sum file](#10-the-go-sum-file)<br>
 ⌲ [11. Adding dependencies to your module](#11-adding-dependencies-to-your-module)<br>
 ⌲ [12. How the go command interacts with modules](#12-how-the-go-command-interacts-with-modules)<br>
-⌲ [13. Semantic Import Versioning](#13-semantic-import-versioning)<br>
+⌲ [13. Semantic import versioning](#13-semantic-import-versioning)<br>
 ⌲ [14. Versioning and releasing your module](#14-versioning-and-releasing-your-module)<br>
 ⌲ [15. Vendoring](#15-vendoring)<br>
 ⌲ [16. Tips on migrating non-module projects to modules](#16-tips-on-migrating-non-module-projects-to-modules)<br>
 ⌲ [17. The go mod command](#17-the-go-mod-command)<br>
-⌲ [18. Private Modules](#18-private-modules)<br>
+⌲ [18. Private modules](#18-private-modules)<br>
 
 ## 1. So what's a module anyway? <a name="1-so-whats-a-module-anyway"></a>
 Packages, modules, and repositories are all ways Go source code is managed and distributed but how do you distinguish them from one another? Here's the difference:
@@ -39,17 +39,18 @@ Packages, modules, and repositories are all ways Go source code is managed and d
 ⌲ A **repository** is a collection of one or more modules, at least in the context of Go modules. 
 
 Now that we've cleared that up, let's examine the benefits of using modules that a package and repository don't provide. 
-1. They facilitate reproducible builds. This means that if you build your Go code given a set of constant conditions such as dependencies among other things, you can be able to reproduce that same build the next day with the same code and conditions. 
+
+1. They facilitate reproducible builds. This means that if you build your Go code given a set of constant conditions such as dependencies among other things, you can reproduce that same build the next day with the same code and conditions. 
 2. A module manages your dependencies and eliminates the need to use external vendor tools like glide, dep, govendor, etc. 
 3. A module allows you to write code outside the GOPATH. 
 
 ## 2. Go versions that support modules <a name="2-go-versions-that-support-modules"></a>
 As mentioned above, module support came with the release of Go 1.11. All Go 1.11+ versions continue to improve upon and add more features to module support. 
 
-However, if you're still using versions of Go earlier than 1.11, it's still possible to use modules as dependencies in your codebase. It's pretty simple to use version 0 and 1 modules as dependencies in these instances. It's more tricky using version 2+ module dependencies. Updates were added to Go versions 1.9.7+, 1.10.3+ and 1.11 to allow code written using those versions to rely on v2+ module dependencies. No changes have to be made to existing codebases to support module dependencies in these kinds of projects. This only works if modules are disabled for that specific code project. This feature is known as **minimal module compatibility.**
+However, if you're still using Go versions earlier than 1.11, it's still possible to use modules as dependencies in your codebase. Using version 0 and 1 module dependencies is uncomplicated. It's more complex using version 2+ module dependencies with these later versions. So updates were made to Go versions 1.9.7+, 1.10.3+ and 1.11 to allow codebases using those versions to rely on v2+ module dependencies. For that reason, no changes have to be made to existing code to support module dependencies in these kinds of projects. This only works if modules are disabled for these kinds of codebases. This feature is known as **minimal module compatibility.**
 
-## 3. Enabling modules on the Go command <a name="3-enabling-modules-on-the-go-command"></a>
-To enable Go Modules in your codebase, you need to be running Go 1.11 or higher. Once a compatible Go version is installed, there are two ways to enables module support:
+## 3. Enabling modules on the go command <a name="3-enabling-modules-on-the-go-command"></a>
+To enable Go modules in your codebase, you need to be running Go 1.11 or higher. Once a compatible Go version is installed, there are two ways to enables module support:
 
 1. Add a **go.mod** file to your project. 
 2. Set the temporary environment variable `GO111MODULE` to `on`.
@@ -74,17 +75,18 @@ SemVer or in full **semantic versioning** is the main versioning system that Go 
 
 All Go modules should be versioned as above with the addition of the prefix `v` e.g. **`v2.4.3`**.
 
-## 5. Module Structure <a name="5-module-structure"></a>
+## 5. Module structure <a name="5-module-structure"></a>
 A module consists of and is defined by:
 
-**a. Module Path**
+**a. Module Path**<br>
 The module path defines the location of a module. It can be derived from VCS (like Git) metadata by the go command or set explicitly by the creator of the module. 
 
-**b. Module Root**
+**b. Module Root**<br>
 The module root corresponds to the module path. It is the directory in which your Go module exists. It is the root directory in which the go.mod and go.sum files are located and contains a tree of Go source files. 
 
-**c. go.mod**
-go.mod is a file that is located within your module root. It is by default automatically created when a module is initialized using the Go command. It is auto-populated with some of the details mentioned below. The go.mod file lists:
+**c. go.mod**<br>
+go.mod is a file that is located within your module root. It is automatically created when a module is initialized using the Go command and is auto-populated with:
+
 - the module path
 - the version of your module
 - the version of Go your module is using
@@ -92,22 +94,22 @@ go.mod is a file that is located within your module root. It is by default autom
 - replacement dependencies
 - excluded dependencies
 
-**d. go.sum**
+**d. go.sum**<br>
 The go.sum file is used to authenticate your dependencies to ensure that no unexpected changes were introduced to them. This guarantees that builds are repeatable i.e. given the same source code and versioned dependencies (and other constant factors), consecutive builds will result in the same build all the time. 
 
-The go command creates cryptographic checksums of a module's dependencies and go.mod files. It then stores them in the go.sum file. You can read more about the contents of a go.sum file look are at [tidbit 10](#10-the-go-sum-file).
+The go command creates cryptographic checksums of a module's dependencies and go.mod files. It then stores them in the go.sum file. You can read more about the contents of a go.sum file at [tidbit 10](#10-the-go-sum-file).
 
-**e. Source Packages**
+**e. Source packages**<br>
 A module, in essence, is just a collection of Go packages. All other features of modules like versioning and dependency management exist to facilitate the building of these packages and their consumption. 
 
-**f. Dependencies**
-Dependencies are the set of all modules that are required to build the main module (module in which go command is run).
+**f. Dependencies**<br>
+Dependencies are the set of all modules that are required to build and test the main module (module in which go command is run).
 
-**g. Build List**
+**g. Build List**<br>
 A build list is the set of the main module and all its required dependencies that provide packages to a build of the main module. A build list is the result of the go command converting the go.mod file to a list of specific modules when it builds the main module. Only specific versions of dependencies are used. If multiple versions of a dependency exist, then the go command only adds the most recent version of it to the build list.
 
 ## 6. Creating a new module <a name="6-creating-a-new-module"></a>
-To create a new module, you need to have a module path and decide what your module root is. Your module's path will depend on where your module is in relation to the GOPATH or if you're using a VCS. You also need to consider what the version of your module will be as it affects the path of your module. Note that where you run the below commands to create your module is where your module will reside (module root). 
+To create a new module, you need to decide what the module path and module root are going to be. Your module's path will depend on where your module is in relation to the GOPATH or if you're using a VCS. You also need to consider what the version of your module will be as it affects the path of your module. Note that where you run the below commands to create your module is where your module will reside (module root). 
 
 **a.** If your module will be located within GOPATH, all you have to do is:
 ```bash
@@ -123,14 +125,14 @@ The go command will infer the module path using VCS metadata. For example, if yo
 go mod init [path]
 ```  
 
-If your module is v2+ you will need to edit its path in the go.mod file to reflect the version. This is because of Semantic Import Versioning that is touched on at [tidbit 12](#12-semantic-import-versioning).
+If your module is v2+ you will need to edit its path in the go.mod file to reflect the version. This is because of Semantic Import Versioning that is touched on at [tidbit 13](#13-semantic-import-versioning).
 
 ## 7. The go.mod file <a name="7-the-go-mod-file"></a>
 The go.mod file describes the path of a module, the version of Go the module is using and the dependencies of the module. The five verbs used in go.mod directives are:
 
 **a. `module`**: describes the path of the module and its version.<br>
-**b. `go`**: used to set the version of Go used when compiling the module. This resulting directive does not affect build tags.<br> 
-**c. `require`**: specifies a dependency of a specific version that is required by the module.<br>
+**b. `go`**: used to set the version of Go used when compiling the module. The resulting directive does not affect build tags.<br> 
+**c. `require`**: specifies a dependency of a precise version that is required by the module.<br>
 **d. `replace`**: used to replace one version of a dependency with another dependency eg. `replace buggy/dependency v1.3.6 => stable/dependency/v2 v2.9.4`.<br>
 **e. `exclude`**: used to omit a particular version of a dependency from use.<br>
 
@@ -147,7 +149,7 @@ require another/dependency        v1.5.3
 exclude outdated/dependency v3.4.1
 ```
 
-The go command creates the go.mod file when a module is initialized. It then populates it with the latest versions of dependencies referenced in your source code. These dependencies can also come from a list of dependencies created by a dependency management tool like godep. At least [7 other dependency management tools](https://tip.golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables) are supported. 
+The go command creates the go.mod file when a module is initialized. It then populates it with the latest versions of dependencies referenced in your source code. These dependencies can also come from a list created by a dependency management tool like godep. At least [7 other dependency management tools](https://tip.golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables) are supported. 
 
 This file can be modified by the **go mod** command but other go commands like **go build**, **go test**, etc. can add to the file but never remove from it. go.mod is line-oriented and each line should feature a directive unless creating blocks from adjacent lines with the same verb. For example:
 
@@ -160,9 +162,9 @@ require(
 
 Comments can be written on the go.mod file but only single-line comments with `\\` can be used. Multiline comments with `\**\` cannot be used.
 
-## 8. The Types of dependencies in your go.mod <a name="8-the-types-of-dependencies-in-your-go-mod"></a>
+## 8. The types of dependencies in the go.mod file <a name="8-the-types-of-dependencies-in-the-go-mod-file"></a>
 
-In your go.mod, different kinds of dependencies are listed differently depending on how they relate to the module. These are:
+In the go.mod file, different kinds of dependencies are listed differently depending on how they relate to the module. These are:
 
 #### a.Direct Dependencies
 These are dependencies that are directly imported by the current module. They are unmarked in the go.mod file. 
@@ -172,7 +174,7 @@ These are unlisted dependencies of the direct dependencies. Some dependencies wo
 
 `require indirect/dependency/v3  v3.3.1 //indirect`
 
-## 9. Module Queries <a name="9-module-queries"></a>
+## 9. Module queries <a name="9-module-queries"></a>
 
 A module query is a request for a module at a precise or condition-matching version. It can be requested using the go command or on the go.mod file. The version requested corresponds to some stated conditions or could be an exact version. If no exact version is requested, the go command translates the module query into specific module versions then updates the go.mod file with the results.
 
@@ -190,7 +192,7 @@ Some dependencies have no SemVer tags associated with them. Newly committed chan
 
 **ii. A time portion**: this is the timestamp of when the pseudo-version was created and is used to compare two pseudo-versions to determine which is the most recent.
 
-**iii. A commit hash**: this is the underlying commit of the updated version of the dependency you'd like to use.
+**iii. A commit hash**: this is the underlying commit that marks the changes in the dependency that you'd like to use.
 
 Here's an illustration of what a pseudo-version looks like:
 
@@ -200,10 +202,10 @@ Here's an illustration of what a pseudo-version looks like:
 Pseudo-versions come in 3 forms:
 
 1. A dependency with absolutely **no tags.** Example, `v0.0.0-yyyymmddhhmmss-abcdefabcdef`
-2. A dependency with its most recent tag being **a fully-specified semantic version tag.** Example, `vX.Y.Z-yyyymmddhhmmss-abcdefabcdef`
-3. A dependency with its most recent tag being **a fully-specified pre-release candidate semantic version tag.** Example, `vX.Y.Z-pre.0-yyyymmddhhmmss-abcdefabcdef`
+2. A dependency with its most recent tag being **a fully-specified semantic version.** Example, `vX.Y.Z-yyyymmddhhmmss-abcdefabcdef`
+3. A dependency with its most recent tag being **a fully-specified pre-release candidate semantic version.** Example, `vX.Y.Z-pre.0-yyyymmddhhmmss-abcdefabcdef`
 
-#### b. Semantic Versions
+#### b. Semantic versions
 Semantic versions as covered in [tidbit 4](#4-semver) can provide flexibility when you'd like to receive patches or features as soon as they are made available. Types of SemVer module queries include:
 
 1. **Fully specified semantic**  version like `v4.5.8` which resolves to a specific version of a dependency. 
@@ -217,7 +219,7 @@ These include:
 2. **`upgrade`** which corresponds to a version later than `latest`. This can include pre-release revisions, for example. 
 3. **`patch`** which corresponds to the latest tagged version of a dependency with the same major and minor version. 
 
-#### d. Revision Identifiers
+#### d. Revision identifiers
 These include:
 
 1. commit hash prefixes (8 to 12 first characters of a commit hash are adequate for most repositories).
@@ -256,6 +258,7 @@ go get github.com/o/p@5ce8005990f77d06
 go get github.com/q/r@3.0-beta6
 go get github.com/s/t@staging
 ```
+
 ## 10. The go.sum file <a name="10-the-go-sum-file"></a>
 The purpose of the go.sum file is to help the go command authenticate a module's dependencies. It helps ensure that the source code of a dependency remains the same for a specified version. This is important because: 
 
@@ -282,33 +285,33 @@ You can add dependencies to your module in these ways:
 
 **c.** Test dependencies are added to the module's go.mod when running `go test`.
 
-**d.** Several other go commands scan your source code for missing requirements then add them to your go.mod when running. Commands like these include `go list` etc. More about this is touched on at [tidbit 12](12-how-the-go-command-interacts-with-modules). 
+**d.** Several other go commands scan your source code for missing requirements then add them to your go.mod when running. Commands like these include `go list` etc. More about this is touched on at [tidbit 12](#12-how-the-go-command-interacts-with-modules). 
 
-**e.** Use `go mod download` to add a module dependency to your local cache to use before you add it to your source code. 
+**e.** Use `go mod download` to add a module dependency to your local cache before you reference it to your source code. 
 
 By default, module dependencies are stored in **`GOPATH/pkg/mod`** but if you opt to vend your dependencies, they are stored in a *`vendor`* directory at the module root. 
 
 ## 12. How the go command interacts with modules <a name="12-how-the-go-command-interacts-with-modules"></a>
-The various go commands interact with modules in different ways. Here's a general categorization of how the go commands interact with modules:
+The various go commands interact with modules in different ways. Here's a general categorization of how they behave in relation to modules:
 
-**i.** Some go commands when run, search through the source code and add missing build dependencies to the go.mod file and download them to your local cache or vendor directory. They, however, do not remove unused dependencies or delete anything from the go.mod or go.sum. These commands are: `go build`, `go clean`, `go fix`, `go fmt`, `go generate`, `go get`, `go install`, `go list`, and `go run`.
+**i.** Some go commands when run, search through the source code and add missing build dependencies to the go.mod file and download them to the local cache or vendor directory. They, however, do not remove unused dependencies or delete anything from the go.mod or go.sum. These commands are: `go build`, `go clean`, `go fix`, `go fmt`, `go generate`, `go get`, `go install`, `go list`, and `go run`.
 
-**ii.** Other go commands not only add missing build dependencies but also add missing test dependencies to the go.mod, the go.sum, and your local cache or vendor directory. These commands are `go test` and `go vet`. They do not remove any unused dependencies if they happen upon them.
+**ii.** Other go commands not only add missing build dependencies but also add missing test dependencies to the go.mod, the go.sum, and the local cache or vendor directory. These commands are `go test` and `go vet`. They do not remove any unused dependencies if they happen upon them.
 
-**iii.** The `go mod` command was created specifically for module maintenance. Out of the 8 `go mod` operations only 3 directly add missing module dependencies to your local cache/vendor directory when run. These are `go mod tidy`, `go mod vendor`, and `go mod why`. `go mod download` adds dependencies to your local cache that are specifically requested.
+**iii.** The `go mod` command was created for module operations. Out of the eight `go mod` operations only three directly add missing module dependencies to the local cache/vendor directory when run. These are `go mod tidy`, `go mod vendor`, and `go mod why`. `go mod download` adds dependencies to the local cache when specifically requested.
 
 ## 13. Semantic Import Versioning <a name="13-semantic-import-versioning"></a>
-Go 1.11+ versions adhere to semantic import versioning when it comes to modules. Semantic import versioning involves versioning a module strictly following SemVer and the **_import compatibility rule_**. You can read up on Semver at [tidbit 4](#4-semver). The *import compatibility rule* states that:
+Go 1.11+ module versions adhere to semantic import versioning. Semantic import versioning involves versioning a module following SemVer and the **_import compatibility rule_**. You can read up on Semver at [tidbit 4](#4-semver). The *import compatibility rule* states that:
 
 > If an old package and a new package have the same import path, the new package must be backward compatible with the old package.
 
-So according to the *import compatibility rule*, if any compatibility breaking changes are introduced to your package, the package's import path should change. The change in import path is accomplished by adding the major version of the package's module to the module path. However, this only applies to releases that have opted into the use of modules.
+So according to the *import compatibility rule*, if any compatibility breaking changes are introduced to your package, the package's import path should change. The change in import path is accomplished by adding the major version of the module to which the package belongs to the module path. However, this only applies to releases that have opted into the use of modules.
 
-Releases that use Go modules follow 3 rules to comply with *semantic import versioning*. These are:
+Releases that use modules follow 3 rules to comply with *semantic import versioning*. These are:
 
 **a.** Adhere to SemVer.
 
-**b.** v0 and v1 releases should not include their major version numbers in their module and import paths. **v0** releases omit `v0` because these versions are considered as initial, unstable and still under development as progress is made towards **v1**. **v1** releases just omit `v1` by default.
+**b.** v0 and v1 releases should not include their major version numbers in their module and import paths. **v0** releases omit `v0` because these versions are considered to be initial, unstable and still under development as progress is made towards **v1**. **v1** releases just omit `v1` by default.
 
 **c.** v2+ releases should include their major version numbers in their module and import paths. This is required by the go command to preserve import compatibility as mentioned above.
 
@@ -325,12 +328,12 @@ Version | Major Version | Module Path | Import Path
 
 There are 2 exceptions to this rule which in time will be unnecessary as more projects adopt the use of modules. These are:
 
-1. Projects using  **gopkg.in**. **gopkg.in** is an earlier versioning system. It employed the use of major version numbers at the end of a package import path concatenated with a period. 
+1. Projects using  [**gopkg.in**](https://labix.org/gopkg.in). [**gopkg.in**](https://labix.org/gopkg.in) is an earlier versioning system. It concatenated a package's import path to its major version using a period. 
 2. Projects that have not opted in to the use of modules yet.
 
 There are some benefits to semantic import versioning:
 
-1. It prevents the diamond dependency import problem. You can read more about it [here](https://research.swtch.com/vgo-import).
+1. It prevents the [diamond dependency import problem.](https://research.swtch.com/vgo-import).
 2. It's possible to use two versions of a module with different major version numbers within the same codebase.
 3. It helps package developers easily identify dependencies early that may be problematic to work with in the future. This is because using v0, pre-release, incompatible or pseudo versions does not guarantee backward compatibility.
 
@@ -346,7 +349,7 @@ If this is the first time your code is opting into module use, two things need t
 1. Is your codebase new or pre-existing?
 2. What version would you like to initially tag your module?
 
-If your codebase is new, creating a module is pretty easy. However, if you have a pre-existing codebase and are just now opting into modules, you will need to adopt SemVer if you haven't already. Once that's done, increment the major version because opting into modules is considered a compatibility breaking change. 
+If your codebase is new, creating a module is straightforward. However, if you have a pre-existing codebase and are just now opting into modules, you will need to adopt SemVer if you haven't already. Once that's done, increment the major version because opting into modules is considered a compatibility breaking change. 
 
 Deciding what initial version to use comes with its own set of considerations. Tagging your module as v0 means your module is still under development, is not stable and cannot guarantee backward compatibility. Tagging your module as v1+ and beyond means, your module is stable and enforces backward compatibility within each major version. Pre-release versions behave similarly to v0 modules. 
 
@@ -391,12 +394,12 @@ As per the *import compatibility rule*, module paths for v2+ modules have a majo
 
 The major subdirectory method is preferred over the major branch method because:
 
-1. with the subdirectory method, tools that are module-unaware yet can work with different versions of a module. With branches, it gets tricky since these tools are not module aware and can pull from master which may be a different version than requested.
-2. with the branch method, module-unaware tools have a hard time working with module paths and it makes it difficult to locate files associated with those file paths.
-3. makes migration to other versions of a dependency easier. Large codebases can depend on multiple versions of the same dependency when doing phased migrations to newer versions.  
+1. with the subdirectory method, tools that are module-unaware can work with different versions of a module. With branches, it gets tricky since these tools are not module aware and can pull from master which may be a different version than requested.
+2. with the branch method, module-unaware tools have a hard time working with module paths and it's difficult to locate files associated with those file paths.
+3. makes migration to other versions of a dependency easier in non-module codebases. Large non-module codebases can depend on multiple versions of the same dependency when doing phased migrations to newer versions with the major subdirectory method. 
 
 #### Major branch method
-1. Create a new branch based on the most recent version of your module. Make it your current operating branch. Name it the next major version you'd like to create eg. `v2`.
+1. Create a new branch based off of the most recent version of your module. Make it your current operating branch. Name it the next major version you'd like to create eg. `v2`.
 
     ```bash
     git branch v2
@@ -406,7 +409,7 @@ The major subdirectory method is preferred over the major branch method because:
 2. In your go.mod file, change the suffix of your module path to reflect the new version in the module directive. For example, when moving from v1 to v2, `module github.com/user/module` would change to `module github.com/user/module/v2`.
 
     ```bash
-    go mod edit -module github.com/user/module/v3 go.mod
+    go mod edit -module github.com/user/module/v2 go.mod
     ```
         
 3. Update import paths in your source code to reflect the change in your module path eg. `github.com/user/module/package` in v1 would change to `github.com/user/module/v2/package` in v2.  You could use your editor for this step or **find** and **sed** on the command line if you'd prefer.
@@ -423,7 +426,7 @@ The major subdirectory method is preferred over the major branch method because:
     go test ./...
     ```
 
-6. Tag your module. To make sure all changes made are stable, it's recommended to first create a pre-release version as breaking compatibility is understandable with pre-releases. Once all new changes have been tested and found to be stable, you could tag the next stable release. 
+6. Tag your module. To make sure all changes made are stable, it's recommended to first create a pre-release version as some instability is understandable with pre-releases. Once all new changes have been tested and found to be stable, you could tag the next stable release. 
 
     ```bash
     git tag [tag]
@@ -453,7 +456,7 @@ The major subdirectory method is preferred over the major branch method because:
 3. Change your current directory to the one you just created. On the go.mod file, change the suffix of your module path to reflect the new version. For example:
 
     ```bash
-    go mod edit -module github.com/user/module/v2 go.mod
+    go mod edit -module github.com/user/module/v3 go.mod
     ```
 
 4. Update import paths in your source code to reflect the change in your module path eg. `github.com/user/module/package` in v1 would change to `github.com/user/module/v2/package` in v2. You could use your editor for this step or **find** and **sed** on the command line if you'd prefer.
@@ -470,7 +473,7 @@ The major subdirectory method is preferred over the major branch method because:
     go test ./...
     ```
 
-7. Tag your module. To make sure all changes made are stable, it's recommended to first create a pre-release version as breaking compatibility is understandable with pre-releases. Once all new changes have been tested and found to be stable, you could tag the next stable release. 
+7. Tag your module. To make sure all changes made are stable, it's recommended to first create a pre-release version as some instability is understandable with pre-releases. Once all new changes have been tested and found to be stable, you could tag the next stable release. 
 
     ```bash
     git tag [tag]
@@ -491,7 +494,7 @@ Some best practices to follow when versioning and releasing your v2+ modules:
 
 ## 15. Vendoring <a name="15-vendoring"></a>
 
-Vendoring is the process of fetching packages that your codebase depends on and storing them usually in the codebase directory. In Go, vendored packages are stored in the *vendor* directory. However by default, when using modules the *vendor* directory is ignored by the go command. To vendor dependencies for your module, you run:
+Vendoring is the process of fetching packages that your codebase depends on and storing them usually in the codebase directory. In Go, vendored packages are stored in the *vendor* directory at the module root. However by default, when using modules the *vendor* directory is ignored by the go command. To vendor dependencies for your module, you run:
 
 ```bash
 go mod vendor
@@ -514,22 +517,22 @@ Tips for maintainers:
 2. When initially migrating your project to modules, increment your major version since it's considered a breaking change. Because of the import compatibility rule, the new major version is added to the module path and this means you also have to modify your codebase's import paths as well. 
 3. To migrate your dependencies, just run `go mod init` as this will auto-populate the dependencies in the go.mod file. You will need to modify the import paths for v2+ module dependencies within the codebase and in the go.mod. 
 
-Tips when handling your module's users:
+Tips for handling users' needs:
 
 1. Encourage users to import packages directly in code as this is easier than using `go get`. The go command automatically adds new imports to go.mod as dependencies. 
 2. Have options for your non-module users who may want to consume your module. If your module is in v2+, you can go one of two ways: the major subdirectory strategy which is good for most Go versions or the major branch strategy which works for Go 1.9.7+, 1.10.3+, and 1.11+ codebases. Non-module users have very few problems using v0 and v1 module dependencies so there's not much to worry about if your module is in v0 or v1.  
 3. Your users can use multiple versions of your module in their codebase. This is especially helpful if your users are slowly migrating dependencies in a large codebase or to fill deficiencies between different versions of your module.
 
 ## 17. The go mod command <a name="17-the-go-mod-command"></a>
-The `go mod` is used to perform operations on modules. The eight `go mod` commands are:
+The `go mod` command is used to perform operations on modules. The eight `go mod` commands are:
 
 Command | Operation | Usage
 --- | --- | ---
 `download` | Downloads a module to local cache (`GOPATH/pkg/mod/cache`). A specific module version can be requested using the query `path@version`. This is mostly used when you'd like to preload dependencies. To get a more detailed overview of the module you are downloading use the `-json` flag.  | `go mod download [flags] [path]@[version]...`
-`edit` | Used to edit a **go.mod** file. It reads the **go.mod** file then writes changes to the same file or another specified file. It is mostly useful for tools or scripts. The command does not do any module lookup so determining any errors related to the modified file contents is up to you. With this command, you can:<br>- format the go.mod (`-fmt`)<br> - change the module path (`-module newPath`)<br>- require a dependency (`-require=path@version`)<br>- drop a required dependency (`-droprequire=path@version`)<br>- replace a dependency with another different dependency (`-replace oldpath@version=newpath@version`)<br>- drop a replacement dependency (`-dropreplace=module@version`)<br>- exclude a dependency (`-exclude=path@version`)<br>- drop an excluded dependency(`-dropexclude=path@version`)<br>- change the Go version (`-go=version`)<br>- prints the modified contents of the go.mod without writing the results back to the source go.mod (`-print`)<br>- prints the modified contents of the go.mod  in a JSON format without writing the results back to the source go.mod (`-json`) | `go mod edit [flags] [target go.mod]`
+`edit` | Used to edit a **go.mod** file. It reads the **go.mod** file then writes changes to the same file or another specified file. It is mostly useful for tools or scripts. The command does not do any module lookup so determining any errors related to the modified file contents is up to you. With this command, you can:<br>- format the go.mod (`-fmt`)<br> - change the module path (`-module newPath`)<br>- require a dependency (`-require=path@version`)<br>- drop a required dependency (`-droprequire=path@version`)<br>- replace a dependency with another different dependency (`-replace oldpath@version=newpath@version`)<br>- drop a replacement dependency (`-dropreplace=module@version`)<br>- exclude a dependency (`-exclude=path@version`)<br>- drop an excluded dependency(`-dropexclude=path@version`)<br>- change the Go version (`-go=version`)<br>- print the modified contents of the go.mod without writing the results back to the source go.mod (`-print`)<br>- print the modified contents of the go.mod in a JSON format without writing the results back to the source go.mod (`-json`) | `go mod edit [flags] [target go.mod]`
 `graph` | prints a text version of the module requirement graph which is a list of your module's direct and indirect dependencies. | `go mod graph`
 `init` | initializes a new module by creating a **go.mod** and populating it with the module path, a Go version, and a list of dependencies. If you are outside GOPATH or not within a repository you need to provide a module path as it's not possible to infer one and this operation will fail without it. The resulting go.mod is written to the current directory. | `go mod init [module path]`
-`tidy` | determines missing and unused module dependencies then adds and removes them from your go.mod and go.sum. Use the `-v` flag for a detailed overview of this command's results. | ` go mod tidy [-v]`
+`tidy` | determines missing and unused module dependencies then adds or removes them from your go.mod and go.sum. Use the `-v` flag for a detailed overview of this command's results. | ` go mod tidy [-v]`
 `vendor` | adds your module's build and test dependencies to a vendor directory. Use the `-v` flag for a detailed overview of this command's results.  | `go mod vendor [-v]`
 `verify` | checks that the module's dependencies in the source cache have not been modified since being downloaded. | `go mod verify`
 `why` | shows how and where packages or modules are needed in your main module. It does this by showing you the shortest path in your module's dependency graph between your module and a specified package or module. By default, the arguments are considered to be packages. If you use the `-m` flag, they are considered to be modules. The `-vendor` flag excludes test dependencies from the results.  | `go mod why [-m] [-vendor] packages...`
@@ -542,13 +545,13 @@ To host private modules it's important to first know and understand the services
 ### 1. The Module Mirror
 It is served at [proxy.golang.org](https://proxy.golang.org). It is a proxy that caches Go module source code and metadata in its storage system. The module mirror is used by default by the Go command as of Go 1.13. Some core reasons to have the module mirror include:
 
-- To cater to the specific needs of the go command. The go command needs to be able to fetch very specific metadata or source code at a time. For example, fetching a list of available versions of a module, metadata on a distinct version, the go.mod file for one exact version, source code for a precise version, etc. But with source control services, getting this kind of individual information is not possible.
-- To reduce latency when fetching modules. When trying to resolve the version of a dependency that does not have a fully specified semantic version, the go command may have to pull down a whole repository from a source control server. This is slower. The module mirror allows the go command to pull only distinct metadata and source code in such cases making it faster to resolve these kinds of dependencies. 
+- To cater to the specific needs of the go command. The go command needs to fetch very precise metadata or source code at a time. For example, fetching a list of available versions of a module, metadata on a distinct version, the go.mod file for one exact version, source code for a precise version, etc. But with source control services, getting this kind of individual information is not possible.
+- To reduce latency when fetching modules. When trying to resolve the version of a dependency that does not have a fully specified semantic versioned tag, the go command may have to pull down a whole repository from a source control server. This is slower. The module mirror allows the go command to pull only distinct metadata and source code in such cases making it faster to resolve these kinds of dependencies. 
 - To reduce storage on developers' systems since only specific source code and metadata is fetched by the go command.
-- Provides source code that is unavailable from its primary location, for example in case a module has been mistakenly deleted or maliciously taken down. 
+- Provides source code that is unavailable from its primary location, for example in cases where a module has been mistakenly deleted or maliciously taken down. 
 
 ### 2. The Checksum Database
-It is served at [sum.golang.org](https://sum.golang.org). It is a global tamper-proof database that hosts go.sum lines (SHA-256 hashes of the source code and go.mod files). It's designed in a way that makes tampering easily detectable and evident. It also provides endpoints that the go command uses to fetch go.sum files and verify local go.sum files. One advantage of the checksum database is that it provides a layer of security on top of a module proxy or source control service or server that can be audited and report instances where incorrect source code is provided. 
+It is served at [sum.golang.org](https://sum.golang.org). It is a global tamper-proof database that hosts go.sum lines (SHA-256 hashes of the source code and go.mod files). It's designed in a way that makes tampering easily detectable and evident. It also provides endpoints that the go command uses to fetch go.sum files and verify local go.sum files. One advantage of the checksum database is that it provides a layer of security on top of a module proxy or source control service or server that can be audited and reports instances where incorrect source code is provided. 
 
 ### 3. The Module Index
 It is served at [index.golang.org](https://index.golang.org). It's a feed of newly published module versions that [proxy.golang.org](https://proxy.golang.org) makes available. It's helpful when separately caching what's available to [proxy.golang.org](https://proxy.golang.org) on your own. 
