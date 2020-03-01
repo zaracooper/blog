@@ -796,14 +796,14 @@ cp go.mod v3/go.mod
 
 <tr>
 <td><code>GONOPROXY</code></td>
-<td>Controls which modules should not be fetched from the public module mirror.</td>
+<td>Controls which modules should not be fetched from the public module mirror. Can override <code>GOPRIVATE</code>.</td>
 <td>Comma-separated list of glob patterns of module path prefixes</td>
 <td><code>GONOPROXY=</code><br><code>*.privateorg.com,</code><br><code>*.secretorg.com,</code><br><code>somecorp.com/confidential</code></td>
 </tr>
 
 <tr>
 <td><code>GONOSUMDB</code></td>
-<td>Controls which modules should not be validated against the public checksum database.</td>
+<td>Controls which modules should not be validated against the public checksum database. Can override <code>GOPRIVATE</code>.</td>
 <td>Comma-separated list of glob patterns of module path prefixes</td>
 <td><code>GONOSUMDB=</code><br><code>*.privateorg.com,</code><br><code>*.secretorg.com,</code><br><code>somecorp.com/confidential</code></td>
 </tr>
@@ -870,7 +870,7 @@ cp go.mod v3/go.mod
 
         		<footer>
 			<span>
-			&copy; <time datetime="2020-03-01 07:00:11.700595 &#43;0300 EAT m=&#43;0.137589612">2020</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2020-03-01 07:07:54.410435 &#43;0300 EAT m=&#43;0.078778135">2020</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 
