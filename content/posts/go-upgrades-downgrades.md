@@ -19,7 +19,7 @@ Go 1.14 is officially out and module support is now [production ready](https://b
 ##  Installing the `mod` tool
 The [`mod` tool](https://github.com/marwan-at-work/mod) makes upgrades and downgrades simple and quick. To install it:
 
-1. Set `$GOPATH` if you are working outside of `$GOPATH`. 
+1. Set `$GOPATH` if it has no value. 
 2. Add `$GOPATH\bin` to your `$PATH`.
 3. Set `GO111MODULE` to `on`. Alternatively, you could set this value when installing the tool.
 4. Run:
@@ -102,7 +102,7 @@ Github releases are different from Git tags. Github treats your tag as the title
 ![Modify tag names and tag versions](edit-github.png)
 
 ## Downgrades
-Module downgrades can be a good idea in some situations. For example, maybe a severe bug was part of a new tag or maybe a developer is having second thoughts about making compatibility breaking changes or a wrong tag was pushed to the origin repository. In most cases, however, downgrading a module would be a terrible idea because it may involve deleting a published tag and users may have already started consuming it. The best option when dealing with some of the aforementioned scenarios would be to publish a new tag or send out a patch. 
+Module downgrades can be a good idea in some situations. For example, maybe a severe bug was part of a new tag or maybe a developer is having second thoughts about making compatibility breaking changes or an incorrectly named tag was pushed to the origin repository. In most cases, however, downgrading a module would be a terrible idea because it may involve deleting a published tag and users may have already started consuming it. The best option when dealing with some of the aforementioned scenarios would be to publish a new tag or send out a patch. 
 
  That being said, if the tag hasn't yet been published or consumption of the new release is limited, then downgrading a module would be okay. Downgrading involves:
 
@@ -131,7 +131,7 @@ mod downgrade --mod-name=github.com/jarcoal/httpmock
 ```
 
 ## Conclusion
-Module support has been a godsend. However, it can involve a ton of work when it comes to enforcing semantic import versioning when making and using `v2`+ modules. The `mod` command is an amazing tool that makes migrations, downgrades and upgrades faster and less taxing. I hope this was insightful.
+Module support has been a godsend. However, it can involve a ton of work when it comes to enforcing semantic import versioning when making and using `v2`+ modules. The `mod` command is an amazing tool that makes migrations, downgrades, and upgrades faster and less taxing. I hope this was insightful.
 
 ## Credits
 [Gophers](https://github.com/egonelbre/gophers)
