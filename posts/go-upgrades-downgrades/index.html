@@ -70,12 +70,8 @@
         
          
         
-        
-
-<p>Go 1.14 is officially out and module support is now <a href="https://blog.golang.org/go1.14">production ready</a>. This is an opportune time to migrate to modules. With a large codebase, upgrading, downgrading, and migrating to modules may seem like a daunting task because so many changes have to be made to the code. In this tutorial, with the help of <a href="https://github.com/zaracooper/recipepuppy">this Recipe Puppy Go client module</a>, I&rsquo;ll walk through how to make module upgrades, downgrades, and migrations hassle-free.</p>
-
-<h2 id="what-s-covered">What&rsquo;s covered:</h2>
-
+        <p>Go 1.14 is officially out and module support is now <a href="https://blog.golang.org/go1.14">production ready</a>. This is an opportune time to migrate to modules. With a large codebase, upgrading, downgrading, and migrating to modules may seem like a daunting task because so many changes have to be made to the code. In this tutorial, with the help of <a href="https://github.com/zaracooper/recipepuppy">this Recipe Puppy Go client module</a>, I&rsquo;ll walk through how to make module upgrades, downgrades, and migrations hassle-free.</p>
+<h2 id="whats-covered">What&rsquo;s covered:</h2>
 <ol>
 <li><a href="#installing-the-mod-tool">Installing the <code>mod</code> tool</a></li>
 <li><a href="#upgrades-and-migrations">Upgrades and migrations</a></li>
@@ -83,136 +79,100 @@
 <li><a href="#upgrading-dependencies">Upgrading dependencies</a></li>
 <li><a href="#downgrading-dependencies">Downgrading dependencies</a></li>
 </ol>
-
 <h2 id="installing-the-mod-tool">Installing the <code>mod</code> tool</h2>
-
 <p>The <a href="https://github.com/marwan-at-work/mod"><code>mod</code> tool</a> makes upgrades and downgrades simple and quick. To install it:</p>
-
 <ol>
 <li>Set <code>$GOPATH</code> if it has no value.</li>
 <li>Add <code>$GOPATH\bin</code> to your <code>$PATH</code>.</li>
 <li>Set <code>GO111MODULE</code> to <code>on</code>. Alternatively, you could set this value when installing the tool.</li>
-
-<li><p>Run:</p>
-
-<pre><code class="language-bash">go get github.com/marwan-at-work/mod
-</code></pre></li>
+<li>Run:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go get github.com/marwan-at-work/mod
+</code></pre></div></li>
 </ol>
-
 <h2 id="upgrades-and-migrations">Upgrades and migrations</h2>
-
 <p>When using Go modules, any backward compatibility breaking changes require a major version upgrade. Migrating to modules is considered a breaking change and requires an upgrade of the major version. Other backward-incompatible changes can include deleting and modifying exported types, functions, constants, methods, and variables <a href="https://blog.merovius.de/2015/07/29/backwards-compatibility-in-go.html">among other things</a>. It&rsquo;s important to have a clear picture of what backward-incompatible changes are to be made before deciding to upgrade.</p>
-
 <p>In the case of the Recipe Puppy client, we&rsquo;re going to change some function signatures in <a href="https://github.com/zaracooper/recipepuppy/tree/v1.0.0"><code>v1</code></a> from:</p>
-
-<pre><code class="language-go">func FindRecipes(searchTerm string) ([]Recipe, error) {
-    ...
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FindRecipes</span>(<span style="color:#a6e22e">searchTerm</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#a6e22e">Recipe</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#f92672">...</span>
 }
 
-func FindRecipesByIngredient(ingredient string) ([]Recipe, error) {
-    ...
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FindRecipesByIngredient</span>(<span style="color:#a6e22e">ingredient</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#a6e22e">Recipe</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#f92672">...</span>
 }
-</code></pre>
-
-<p>to this in the next version:</p>
-
-<pre><code class="language-go">// this is a breaking change because the function arguments have been modified
-func FindRecipes(recipeTitles []string, page int) ([]Recipe, error) {
-    ...
+</code></pre></div><p>to this in the next version:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// this is a breaking change because the function arguments have been modified
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FindRecipes</span>(<span style="color:#a6e22e">recipeTitles</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">page</span> <span style="color:#66d9ef">int</span>) ([]<span style="color:#a6e22e">Recipe</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#f92672">...</span>
 }
 
-// this is a new feature
-func FindRecipesWithIngredients(recipeTitles []string, ingredients []string, page int) ([]Recipe, error) {
-    ...
+<span style="color:#75715e">// this is a new feature
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FindRecipesWithIngredients</span>(<span style="color:#a6e22e">recipeTitles</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">ingredients</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">page</span> <span style="color:#66d9ef">int</span>) ([]<span style="color:#a6e22e">Recipe</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#f92672">...</span>
 }
 
-// this is a breaking change because the function arguments have been modified
-func FindRecipesByIngredients(ingredients []string, page int) ([]Recipe, error) {
-    ...
+<span style="color:#75715e">// this is a breaking change because the function arguments have been modified
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FindRecipesByIngredients</span>(<span style="color:#a6e22e">ingredients</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">page</span> <span style="color:#66d9ef">int</span>) ([]<span style="color:#a6e22e">Recipe</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#f92672">...</span>
 }
-</code></pre>
-
-<p>To upgrade to a new version:</p>
-
+</code></pre></div><p>To upgrade to a new version:</p>
 <ol>
-<li>Identify your next major version eg. <code>v1</code> → <code>v2</code>, <code>v4</code> → <code>v5</code>. In this instance, I&rsquo;m upgrading from <code>v1</code> to <code>v2</code>.</li>
-
-<li><p>Create a space for the new changes. This is done to comply with <a href="https://zaracooper.github.io/blog/posts/go-module-tidbits/#13-semantic-import-versioning"><strong>semantic import versioning</strong></a>. I&rsquo;m using the <strong>major subdirectory</strong> method to release my <code>v2</code>+ module. So I&rsquo;ll create a new <code>v2</code> directory at the module root. If you are using the <strong>major branch</strong> method, create a new branch.</p>
-
-<pre><code class="language-bash">mkdir v2
-</code></pre></li>
-
-<li><p>Copy Go source files and the go.mod file from the current version to the new directory.</p>
-
-<pre><code class="language-bash">cp *.go v2/
+<li>
+<p>Identify your next major version eg. <code>v1</code> → <code>v2</code>, <code>v4</code> → <code>v5</code>. In this instance, I&rsquo;m upgrading from <code>v1</code> to <code>v2</code>.</p>
+</li>
+<li>
+<p>Create a space for the new changes. This is done to comply with <a href="https://zaracooper.github.io/blog/posts/go-module-tidbits/#13-semantic-import-versioning"><strong>semantic import versioning</strong></a>. I&rsquo;m using the <strong>major subdirectory</strong> method to release my <code>v2</code>+ module. So I&rsquo;ll create a new <code>v2</code> directory at the module root. If you are using the <strong>major branch</strong> method, create a new branch.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir v2
+</code></pre></div></li>
+<li>
+<p>Copy Go source files and the go.mod file from the current version to the new directory.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cp *.go v2/
 cp go.mod v2/
-</code></pre></li>
-
-<li><p>Upgrade to the new version. The <code>mod</code> tool will change all module and import paths in the Go source files and the go.mod to reflect the new major version number. In this case, the import path <code>github.com/zaracopper/recipepuppy</code> in <code>v1</code> will change to <code>github.com/zaracooper/recipepuppy/v2</code> for <code>v2</code> in the files copied over.</p>
-
-<pre><code class="language-bash">cd v2
+</code></pre></div></li>
+<li>
+<p>Upgrade to the new version. The <code>mod</code> tool will change all module and import paths in the Go source files and the go.mod to reflect the new major version number. In this case, the import path <code>github.com/zaracopper/recipepuppy</code> in <code>v1</code> will change to <code>github.com/zaracooper/recipepuppy/v2</code> for <code>v2</code> in the files copied over.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd v2
 mod upgrade
-</code></pre></li>
-
-<li><p>Add the <a href="https://github.com/zaracooper/recipepuppy/blob/v2.0.0/v2/api.go">compatibility breaking changes</a> to the source code. I added the aforementioned changes.</p></li>
-
-<li><p>Write/modify <a href="https://github.com/zaracooper/recipepuppy/blob/v2.0.0/v2/api_test.go">tests</a> to cover the breaking changes. Run the tests to make sure that they pass and that the code works as expected.</p></li>
-
-<li><p>Tag the release if everything is stable. If you&rsquo;d like more room to experiment with and test the new changes, tag it as a pre-release version. Use the <code>-m</code> flag to provide an optional message describing the changes made to accompany your tag.</p>
-
-<pre><code class="language-bash">git tag v2
-</code></pre></li>
-
-<li><p>Push the tag.</p>
-
-<pre><code class="language-bash">git push origin v2
-</code></pre></li>
+</code></pre></div></li>
+<li>
+<p>Add the <a href="https://github.com/zaracooper/recipepuppy/blob/v2.0.0/v2/api.go">compatibility breaking changes</a> to the source code. I added the aforementioned changes.</p>
+</li>
+<li>
+<p>Write/modify <a href="https://github.com/zaracooper/recipepuppy/blob/v2.0.0/v2/api_test.go">tests</a> to cover the breaking changes. Run the tests to make sure that they pass and that the code works as expected.</p>
+</li>
+<li>
+<p>Tag the release if everything is stable. If you&rsquo;d like more room to experiment with and test the new changes, tag it as a pre-release version. Use the <code>-m</code> flag to provide an optional message describing the changes made to accompany your tag.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git tag v2
+</code></pre></div></li>
+<li>
+<p>Push the tag.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git push origin v2
+</code></pre></div></li>
 </ol>
-
 <p>Github releases are different from Git tags. Github treats your tag as the title of the equivalent release. If you&rsquo;re using Github, you can add the tag version on Github and even modify the release message.</p>
-
-<p><img src="tag-display-github.png" alt="Tag names and tag versions" /></p>
-
-<p><img src="edit-github.png" alt="Modify tag names and tag versions" /></p>
-
+<p><img src="tag-display-github.png" alt="Tag names and tag versions"></p>
+<p><img src="edit-github.png" alt="Modify tag names and tag versions"></p>
 <h2 id="downgrades">Downgrades</h2>
-
 <p>Module downgrades can be a good idea in some situations. For example, maybe a severe bug was part of a new tag or maybe a developer is having second thoughts about making compatibility breaking changes or an incorrectly named tag was pushed to the origin repository. In most cases, however, downgrading a module would be a terrible idea because it may involve deleting a published tag and users may have already started consuming it. The best option when dealing with some of the aforementioned scenarios would be to publish a new tag or send out a patch.</p>
-
 <p>That being said, if the tag hasn&rsquo;t yet been published or consumption of the new release is limited, then downgrading a module would be okay. Downgrading involves:</p>
-
 <ol>
-<li><p>Deleting the tag locally if one was already created.</p>
-
-<pre><code class="language-bash">git tag -d v2
-</code></pre></li>
-
-<li><p>Downgrading the module. This will modify the module and import paths by removing the versions number from them or replacing it with the previous version number. For example, when downgrading the new <code>v2</code>, module paths will change from <code>github.com/zaracooper/recipepuppy/v2</code> to <code>github.com/zaracooper/recipepuppy</code>.</p>
-
-<pre><code class="language-bash">mod downgrade
-</code></pre></li>
+<li>
+<p>Deleting the tag locally if one was already created.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git tag -d v2
+</code></pre></div></li>
+<li>
+<p>Downgrading the module. This will modify the module and import paths by removing the versions number from them or replacing it with the previous version number. For example, when downgrading the new <code>v2</code>, module paths will change from <code>github.com/zaracooper/recipepuppy/v2</code> to <code>github.com/zaracooper/recipepuppy</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mod downgrade
+</code></pre></div></li>
 </ol>
-
 <h2 id="upgrading-dependencies">Upgrading dependencies</h2>
-
 <p>New versions of dependencies are released constantly. In most cases, it&rsquo;s always advisable to upgrade to take advantage of new features and keep up with patches. In large codebases, it may be daunting to upgrade if a dependency is used in multiple places. It&rsquo;s even trickier when trying to upgrade more than one dependency at a time. Since it can get pretty complicated, some maintainers even opt for phased migrations when deciding to upgrade. An easy way to minimize the work involved is to change module and import paths in one fowl swoop. For example, to upgrade the <code>github.com/jarcoal/httpmock</code> test dependency when a <code>v2</code> version comes out, all I&rsquo;d have to do is:</p>
-
-<pre><code class="language-bash">mod upgrade --mod-name=github.com/jarcoal/httpmock
-</code></pre>
-
-<h2 id="downgrading-dependencies">Downgrading dependencies</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mod upgrade --mod-name<span style="color:#f92672">=</span>github.com/jarcoal/httpmock
+</code></pre></div><h2 id="downgrading-dependencies">Downgrading dependencies</h2>
 <p>Sometimes using a new dependency may not work out and you may need to use a previous version that had worked better. A faster way to downgrade a dependency is to use <code>mod downgrade</code>. If I decided to downgrade <code>github.com/jarcoal/httpmock</code>, all I&rsquo;d have to do is:</p>
-
-<pre><code class="language-bash">mod downgrade --mod-name=github.com/jarcoal/httpmock
-</code></pre>
-
-<h2 id="conclusion">Conclusion</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mod downgrade --mod-name<span style="color:#f92672">=</span>github.com/jarcoal/httpmock
+</code></pre></div><h2 id="conclusion">Conclusion</h2>
 <p>Module support has been a godsend. However, it can involve a ton of work when it comes to enforcing semantic import versioning when making and using <code>v2</code>+ modules. The <code>mod</code> command is an amazing tool that makes migrations, downgrades, and upgrades faster and less taxing. I hope this was insightful.</p>
-
 <h2 id="credits">Credits</h2>
-
 <p><a href="https://github.com/egonelbre/gophers">Gophers</a></p>
  
         
@@ -250,7 +210,7 @@ mod upgrade
 
         		<footer>
 			<span>
-			&copy; <time datetime="2020-03-05 07:12:31.916165 &#43;0300 EAT m=&#43;0.254006155">2020</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2021-05-07 17:35:33.445605 &#43;0300 EAT m=&#43;0.133957166">2021</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 

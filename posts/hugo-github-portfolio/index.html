@@ -72,16 +72,10 @@
         
          
         
-        
-
-<p>One thing that sets you apart when looking for a developer gig is a portfolio website. It gives potential clients or employers insight into who you are as a professional, the kind of work you’ve done in the past and what you’re currently up to. Unfortunately, a common impediment that keeps many — including most recently myself — from having portfolio sites is dreading all the work, planning and thought that goes into building a site from scratch, which hosting provider to choose, if the domain you want is available, how much hosting and a domain will set you back (especially if you’re strapped for cash) etc.</p>
-
+        <p>One thing that sets you apart when looking for a developer gig is a portfolio website. It gives potential clients or employers insight into who you are as a professional, the kind of work you’ve done in the past and what you’re currently up to. Unfortunately, a common impediment that keeps many — including most recently myself — from having portfolio sites is dreading all the work, planning and thought that goes into building a site from scratch, which hosting provider to choose, if the domain you want is available, how much hosting and a domain will set you back (especially if you’re strapped for cash) etc.</p>
 <p>In this tutorial, I’m going to walk you through how to set up and host your portfolio site fairly quickly and at no cost.</p>
-
 <h2 id="but-first-is-it-even-that-important-to-have-a-portfolio-site">But, first… is it even that important to have a Portfolio Site?</h2>
-
 <p>Yes. Here’s why:</p>
-
 <ol>
 <li>It lays out your technical skills as a developer. Not only can you list what skills you&rsquo;ve honed over your career but also link to everything that concretely demonstrate them. These can include your projects, hackathons you’ve participated in, interviews you’ve given, articles you’ve published, tutorials you’ve made, talks, opensource work, etc.</li>
 <li>It supports you when networking. <a href="https://podcasts.google.com/?feed=aHR0cHM6Ly9mZWVkcy5mZWVkYnVybmVyLmNvbS9Xb3JrbGlmZVdpdGhBZGFtR3JhbnQ%3D&amp;episode=cHJ4XzEzMV9iMjNiZDRlYi04YWYyLTQ3ZmMtYTYwZi1iOGMwMWVjMTBmYjg%3D">Networking is just connecting with people with similar interests</a> and your portfolio shows other people in the SWE space what your interests are.</li>
@@ -90,187 +84,151 @@
 <li>It allows you to showcase your style.</li>
 <li>It’s a gateway to the rest of your presence on the internet as a developer. You could point people to your Dribble, Github, LinkedIn, Codepen, Dev.to, Medium, Youtube, Twitch and your various other developer accounts.</li>
 </ol>
-
 <h2 id="prerequisites">Prerequisites</h2>
-
 <ol>
 <li><strong>Github account:</strong>  <a href="https://github.com/join">Here’s a link</a>  to create one if you don’t already have one.</li>
 <li><strong>Hugo installed:</strong> Installation instructions for <a href="https://gohugo.io/getting-started/installing#macos">macOS</a> , <a href="https://gohugo.io/getting-started/installing#windows">Windows</a> and <a href="https://gohugo.io/getting-started/installing#linux">Linux</a>.</li>
 </ol>
-
 <h1 id="step-1-generate-your-new-site">Step 1: Generate your new site</h1>
-
 <ol>
 <li>Navigate to your terminal and <code>cd</code>  into a directory where you&rsquo;d set up your site.</li>
 <li>Pick a name for your site’s folder. We’ll use the placeholder <code>&lt;PORTFOLIO_NAME&gt;</code>.</li>
-
-<li><p>Generate your site as follows.</p>
-
-<pre><code class="language-bash">hugo new site &lt;PORTFOLIO_NAME&gt;
-</code></pre></li>
-
-<li><p><code>cd</code> into the newly generated folder and initialize a git repository.</p>
-
-<pre><code class="language-bash">cd &lt;PORTFOLIO_NAME&gt; &amp;&amp; git init .
-</code></pre></li>
+<li>Generate your site as follows.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hugo new site &lt;PORTFOLIO_NAME&gt;
+</code></pre></div></li>
+<li><code>cd</code> into the newly generated folder and initialize a git repository.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd &lt;PORTFOLIO_NAME&gt; <span style="color:#f92672">&amp;&amp;</span> git init .
+</code></pre></div></li>
 </ol>
-
 <h1 id="step-2-choose-and-add-a-theme">Step 2: Choose and add a theme</h1>
-
 <ol>
-<li><p>Head on over to the  <a href="https://themes.gohugo.io/tags/portfolio/">Hugo&rsquo;s Portfolio Themes page</a> and pick a theme that you like. For this tutorial, I picked a theme called <a href="https://themes.gohugo.io/hugo-uilite/">UILite</a>. It’s simple, looks pretty cool and meets the basic needs of a portfolio. There are many other cool themes to choose from though.</p>
-
+<li>
+<p>Head on over to the  <a href="https://themes.gohugo.io/tags/portfolio/">Hugo&rsquo;s Portfolio Themes page</a> and pick a theme that you like. For this tutorial, I picked a theme called <a href="https://themes.gohugo.io/hugo-uilite/">UILite</a>. It’s simple, looks pretty cool and meets the basic needs of a portfolio. There are many other cool themes to choose from though.</p>
 <p>This is what the UILite theme looks like.</p>
-
-<p><img src="theme_sample.png#bordered-image" alt="UILite Theme" /></p></li>
-
-<li><p>Add the theme as a git submodule to <code>&lt;PORTFOLIO_NAME&gt;</code>. This step varies from theme to theme but almost all encourage the use of the theme as a submodule. You add the theme by running:</p>
-
-<pre><code class="language-bash">git submodule add &lt;LINK_TO_THEME_REPO&gt; themes/&lt;THEME_NAME&gt;
-</code></pre>
-
-<p>In our case:</p>
-
-<pre><code class="language-bash">git submodule add https://github.com/uicardiodev/hugo-uilite themes/hugo-uilite
-</code></pre></li>
-
-<li><p>Indicate the <code>&lt;THEME_NAME&gt;</code> you&rsquo;re going to use for your portfolio site in the <strong>config.toml</strong> file already autogenerated for you. The <strong>config.toml</strong> file allows you to specify settings for your entire site.</p>
-
-<pre><code class="language-bash">echo ‘theme = &quot;&lt;THEME_NAME&gt;”’ &gt;&gt; config.toml
-</code></pre>
-
-<p>For our theme, this is what we’ll do:</p>
-
-<pre><code class="language-bash">echo ‘theme = &quot;hugo-uilite”’ &gt;&gt; config.toml
-</code></pre>
-
-<p>At the end of this step, your <strong>config.toml</strong> file should look something like:</p>
-
-<pre><code class="language-toml">baseURL = &quot;http://example.org/&quot;
-languageCode = &quot;en-us”
-title = &quot;My New Hugo Site”
-theme = &quot;hugo-uilite”
-</code></pre></li>
+<p><img src="theme_sample.png#bordered-image" alt="UILite Theme"></p>
+</li>
+<li>
+<p>Add the theme as a git submodule to <code>&lt;PORTFOLIO_NAME&gt;</code>. This step varies from theme to theme but almost all encourage the use of the theme as a submodule. You add the theme by running:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule add &lt;LINK_TO_THEME_REPO&gt; themes/&lt;THEME_NAME&gt;
+</code></pre></div><p>In our case:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule add https://github.com/uicardiodev/hugo-uilite themes/hugo-uilite
+</code></pre></div></li>
+<li>
+<p>Indicate the <code>&lt;THEME_NAME&gt;</code> you&rsquo;re going to use for your portfolio site in the <strong>config.toml</strong> file already autogenerated for you. The <strong>config.toml</strong> file allows you to specify settings for your entire site.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo ‘theme <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;THEME_NAME&gt;”’ &gt;&gt; config.toml
+</span></code></pre></div><p>For our theme, this is what we’ll do:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo ‘theme <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hugo-uilite”’ &gt;&gt; config.toml
+</span></code></pre></div><p>At the end of this step, your <strong>config.toml</strong> file should look something like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#34;http://example.org/&#34;</span>
+<span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#34;en-us”
+</span><span style="color:#e6db74">title = &#34;</span><span style="color:#a6e22e">My</span> <span style="color:#a6e22e">New</span> <span style="color:#a6e22e">Hugo</span> <span style="color:#a6e22e">Site</span><span style="color:#960050;background-color:#1e0010">”</span>
+<span style="color:#a6e22e">theme</span> = <span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#a6e22e">hugo</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">uilite</span><span style="color:#960050;background-color:#1e0010">”</span>
+</code></pre></div></li>
 </ol>
-
 <p>This would be a great point to change the <code>baseURL</code> and <code>title</code> of the portfolio site.</p>
-
 <h1 id="step-3-test-your-site">Step 3: Test your site</h1>
-
 <ol>
-<li><p>Start the Hugo server.</p>
-
-<pre><code class="language-bash">hugo server
-</code></pre></li>
-
-<li><p>On a browser, navigate to <a href="https://localhost:1313/">http://localhost:1313</a>. Your site should be working now and look something like this:</p>
-
-<p><img src="broken_page.png#bordered-image" alt="Broken Page" /></p></li>
+<li>
+<p>Start the Hugo server.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hugo server
+</code></pre></div></li>
+<li>
+<p>On a browser, navigate to <a href="https://localhost:1313/">http://localhost:1313</a>. Your site should be working now and look something like this:</p>
+<p><img src="broken_page.png#bordered-image" alt="Broken Page"></p>
+</li>
 </ol>
-
 <p>It looks broken but it’s not. We just haven&rsquo;t added content to the site yet. That&rsquo;s what we&rsquo;ll do next.</p>
-
 <h1 id="step-4-tweak-your-theme">Step 4: Tweak your theme</h1>
-
 <p>So this part is subjective and depends on your theme, the content you’d like to add and your styling tastes. Some common things portfolios have are prominently displayed names, a brief bio, links to social developer profiles, skills, projects, work experience, accomplishments, etc.</p>
-
 <p>Here&rsquo;s one way to tweak the <strong>hugo-uilite</strong> theme:</p>
-
 <ol>
-<li><p>Start by restoring the theme to its original glory. For the <strong>hugo-uilite</strong> theme, we’ll do this by copying some files from its <em>exampleSite</em> folder. If your theme seems broken at first, the theme’s README should be the first place to look for a solution. If nothing is specified — like in our case — look to the <em>exampleSite</em> folder of your theme’s repo. To fix the site, copy missing files from the data folder of <em>exampleSite</em> to the data folder of the portfolio site.</p>
-
-<pre><code class="language-bash">mkdir data
+<li>
+<p>Start by restoring the theme to its original glory. For the <strong>hugo-uilite</strong> theme, we’ll do this by copying some files from its <em>exampleSite</em> folder. If your theme seems broken at first, the theme’s README should be the first place to look for a solution. If nothing is specified — like in our case — look to the <em>exampleSite</em> folder of your theme’s repo. To fix the site, copy missing files from the data folder of <em>exampleSite</em> to the data folder of the portfolio site.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir data
 cp themes/hugo-uilite/exampleSite/data/* data/
-</code></pre>
-
-<p>This leaves our data folder containing:</p>
-
-<pre><code class="language-bash">data
+</code></pre></div><p>This leaves our data folder containing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">data
 ├── config.json
 ├── experience.json
 ├── services.json
 ├── sidebar.json
 ├── skills.json
 └── social.json
-</code></pre>
-
-<p>The Hugo server picks up the changes and on reload, our site now looks just as it did on the <a href="https://themes.gohugo.io/theme/hugo-uilite/">theme&rsquo;s demo page</a>.</p></li>
-
-<li><p>Next, we’ll add professional information to the site. As mentioned above, there are several details you could include. Styling changes to the theme can also be made. Below I&rsquo;ll describe what I did to modify the theme picked to look like the site screenshotted below. The changes are large and would be unnecessary to describe in detail since not all themes are made the same. So instead, here&rsquo;s a summary:</p>
-
-<p><strong>a. Changed the theme&rsquo;s color palette</strong></p>
-
-<dl>
-<dd>- I added a CSS file with additional styling to the <code>static</code> folder.</dd>
-<dd>- Any styling you add here will override styling from the theme.</dd>
-<dd>- The <code>layouts</code> folder of the theme is a great place to find out what the ids and classes of components you&rsquo;d like to style differently are.</dd>
-<dt><strong>b. Added professional information</strong></dt>
-<dd>- Since we already copied over the <code>data</code> folder, all we have to do is change the information in the respective files for it to reflect on the site e.g for <code>Experience</code> we just edit the <code>experience.json</code> file.</dd>
-<dt><strong>c. Changed the site favicon</strong></dt>
-<dd>- If a theme doesn&rsquo;t provide a configuration setting to change the site&rsquo;s favicon, it needs to be added to the header of the site.</dd>
-<dd>- In this case, the header file was in the theme&rsquo;s <code>layouts/partials</code> folder.</dd>
-<dd>- To add the favicon, copy this file over to the portfolio&rsquo;s <code>layout/partials</code> folder and edit as necessary.</dd>
-<dd>- Also, don&rsquo;t forget to add the favicon to the <code>static</code> folder if it&rsquo;s not a link.</dd>
-<dt><strong>d. Added a projects section</strong></dt>
-<dd>- This theme did not come with a <strong>Projects Section</strong>.</dd>
-<dd>- Since it&rsquo;s similar to the <strong>Services Section</strong>, I duplicated its HTML file (<code>layouts/partials/projects.html</code>), modified it to make the project cards linkable, added a data file for it (<code>data/projects.json</code>) and added it to the <code>layouts/index.html</code> file (which I copied over from the theme).</dd>
-<dd>- In cases where you do not provide services, all you have to do is change the contents of <code>data/services.json</code> file to reflect <strong>Projects</strong> or something else, not <strong>Services</strong>.</dd>
-<dt><strong>e. Added social information</strong></dt>
-<dd>- There are already <code>data/socials.json</code> and <code>data/socialsfas.json</code> (for Font Awesome Solid Style Icons) files where you could specify social information.</dd>
-</dl></li>
+</code></pre></div><p>The Hugo server picks up the changes and on reload, our site now looks just as it did on the <a href="https://themes.gohugo.io/theme/hugo-uilite/">theme&rsquo;s demo page</a>.</p>
+</li>
+<li>
+<p>Next, we’ll add professional information to the site. As mentioned above, there are several details you could include. Styling changes to the theme can also be made. Below I&rsquo;ll describe what I did to modify the theme picked to look like the site screenshotted below. The changes are large and would be unnecessary to describe in detail since not all themes are made the same. So instead, here&rsquo;s a summary:</p>
+<p><strong>a. Changed the theme&rsquo;s color palette</strong>
+: - I added a CSS file with additional styling to the <code>static</code> folder.
+: - Any styling you add here will override styling from the theme.
+: - The <code>layouts</code> folder of the theme is a great place to find out what the ids and classes of components you&rsquo;d like to style differently are.</p>
+<p><strong>b. Added professional information</strong>
+: - Since we already copied over the <code>data</code> folder, all we have to do is change the information in the respective files for it to reflect on the site e.g for <code>Experience</code> we just edit the <code>experience.json</code> file.</p>
+<p><strong>c. Changed the site favicon</strong>
+: - If a theme doesn&rsquo;t provide a configuration setting to change the site&rsquo;s favicon, it needs to be added to the header of the site.
+: - In this case, the header file was in the theme&rsquo;s <code>layouts/partials</code> folder.
+: - To add the favicon, copy this file over to the portfolio&rsquo;s <code>layout/partials</code> folder and edit as necessary.
+: - Also, don&rsquo;t forget to add the favicon to the <code>static</code> folder if it&rsquo;s not a link.</p>
+<p><strong>d. Added a projects section</strong>
+: - This theme did not come with a <strong>Projects Section</strong>.
+: - Since it&rsquo;s similar to the <strong>Services Section</strong>, I duplicated its HTML file (<code>layouts/partials/projects.html</code>), modified it to make the project cards linkable, added a data file for it (<code>data/projects.json</code>) and added it to the <code>layouts/index.html</code> file (which I copied over from the theme).
+: - In cases where you do not provide services, all you have to do is change the contents of <code>data/services.json</code> file to reflect <strong>Projects</strong> or something else, not <strong>Services</strong>.</p>
+<p><strong>e. Added social information</strong>
+: - There are already <code>data/socials.json</code> and <code>data/socialsfas.json</code> (for Font Awesome Solid Style Icons) files where you could specify social information.</p>
+</li>
 </ol>
-
 <p>This is what the final site looks like.</p>
-
-<p><img src="mostly_finished_website.png" alt="Mostly Finished Website" /></p>
-
+<p><img src="mostly_finished_website.png" alt="Mostly Finished Website"></p>
 <h1 id="step-5-create-your-repos-on-github-and-push-your-source-code">Step 5: Create your repos on Github and push your source code</h1>
-
 <ol>
-<li>Commit your changes to the master branch.</li>
-<li>Create a repo on Github to host your site&rsquo;s source code, for example, called <code>&lt;PORTFOLIO_NAME&gt;</code>. You can make this repo private as it just serves to store your site&rsquo;s source code.</li>
-<li>Push your latest changes to this repo.</li>
-<li>Create a second repo from which your site will be hosted. It should have the name <code>&lt;USERNAME&gt;.github.io</code>.</li>
-<li>Locally, <code>cd</code> back into the <code>&lt;PORTFOLIO_NAME&gt;</code> folder and check that you’re happy with how your site looks like by running the Hugo server. If you’re satisfied with the resulting portfolio, kill the server.</li>
-
-<li><p>We next have to link the <code>public</code> folder generated when we build the site locally to the <code>&lt;USERNAME&gt;.github.io</code> repo we created. We’ll make the <code>&lt;USERNAME&gt;.github.io</code> repo the remote origin of the public folder and also make the <code>public</code> folder a submodule of our <code>&lt;PORTFOLIO_NAME&gt;</code> project. Do this by running:</p>
-
-<pre><code class="language-bash">git submodule add -b master git@github.com:&lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io.git public
-</code></pre></li>
-
-<li><p>We may often make changes to our site and as such, we’ll need to make deployment of our portfolio easier the next time around. Hugo provides a script that pushes your changes to your origin (with an optional commit message) and deploys your portfolio site. It can be added to your <code>&lt;PORTFOLIO_NAME&gt;</code> project and simply run when you make a change. The script named <strong>deploy.sh</strong> can be found <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">here.</a>  Once you’ve copied the script over, all you need to do to make the first deployment of your portfolio site is:</p>
-
-<pre><code class="language-bash"># Make the script executable
+<li>
+<p>Commit your changes to the master branch.</p>
+</li>
+<li>
+<p>Create a repo on Github to host your site&rsquo;s source code, for example, called <code>&lt;PORTFOLIO_NAME&gt;</code>. You can make this repo private as it just serves to store your site&rsquo;s source code.</p>
+</li>
+<li>
+<p>Push your latest changes to this repo.</p>
+</li>
+<li>
+<p>Create a second repo from which your site will be hosted. It should have the name <code>&lt;USERNAME&gt;.github.io</code>.</p>
+</li>
+<li>
+<p>Locally, <code>cd</code> back into the <code>&lt;PORTFOLIO_NAME&gt;</code> folder and check that you’re happy with how your site looks like by running the Hugo server. If you’re satisfied with the resulting portfolio, kill the server.</p>
+</li>
+<li>
+<p>We next have to link the <code>public</code> folder generated when we build the site locally to the <code>&lt;USERNAME&gt;.github.io</code> repo we created. We’ll make the <code>&lt;USERNAME&gt;.github.io</code> repo the remote origin of the public folder and also make the <code>public</code> folder a submodule of our <code>&lt;PORTFOLIO_NAME&gt;</code> project. Do this by running:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule add -b master git@github.com:&lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io.git public
+</code></pre></div></li>
+<li>
+<p>We may often make changes to our site and as such, we’ll need to make deployment of our portfolio easier the next time around. Hugo provides a script that pushes your changes to your origin (with an optional commit message) and deploys your portfolio site. It can be added to your <code>&lt;PORTFOLIO_NAME&gt;</code> project and simply run when you make a change. The script named <strong>deploy.sh</strong> can be found <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">here.</a>  Once you’ve copied the script over, all you need to do to make the first deployment of your portfolio site is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Make the script executable</span>
 chmod +x deploy.sh
-# Deploy your portfolio site with an optional commit message
-./deploy.sh &quot;Deploy the first version of my portfolio site”
-</code></pre></li>
+<span style="color:#75715e"># Deploy your portfolio site with an optional commit message</span>
+./deploy.sh <span style="color:#e6db74">&#34;Deploy the first version of my portfolio site”
+</span></code></pre></div></li>
 </ol>
-
 <h1 id="step-6-host-your-site-on-github-pages">Step 6: Host your site on GitHub Pages</h1>
-
 <p>If you’re unfamiliar with or interested in Github User Pages you could read about them <a href="https://help.github.com/en/articles/user-organization-and-project-pages#user--organization-pages">here</a>.</p>
-
 <p>We’re going to be hosting the portfolio we created on a <strong>User Page</strong> which will be found at the <code>&lt;USERNAME&gt;.github.io</code> URL. We’ll be hosting directly from the <strong>master</strong>  branch of the <code>&lt;USERNAME&gt;.github.io</code> repo we created in step 5. To do this:</p>
-
 <ol>
-<li><p>First, the repo has to be public if you are on Github&rsquo;s free plan (you can host from a private repo if you&rsquo;re on an upgraded plan). If your <code>&lt;USERNAME&gt;.github.io</code> repo is private, head on over to <strong>Settings &gt; Options &gt; Danger Zone</strong> to change it back to public.</p>
-
-<p><img src="github_publicity.png" alt="Github Repo Publicity" /></p></li>
-
-<li><p>Next, we’ll need to set the source of the Github User Page. If your repo is named <code>&lt;USERNAME&gt;.github.io</code>, Github Pages is enabled by default with public repos or private repos if you&rsquo;re on an upgraded plan.  This setting can be found at <strong>Settings &gt; Options &gt; Github Pages</strong>. We’ll select the source of the page as the <code>master</code> branch.</p>
-
-<p><img src="github_pages_branch.png" alt="Github Pages Branch" /></p></li>
-
-<li><p>Make your way to the <strong>Environments</strong> tab of the <strong>Code</strong> tab on your repo&rsquo;s page to make sure that the deployment was successful. On this tab, you will see an activity log of your past deploys and highlighted at the top will be your most recent deployment.</p>
-
-<p><img src="github_pages_deployment.png" alt="Github Pages Deployment" /></p></li>
-
-<li><p>Lastly, enter <code>&lt;USERNAME&gt;.github.io</code> on a new browser tab and behold your portfolio.</p></li>
+<li>
+<p>First, the repo has to be public if you are on Github&rsquo;s free plan (you can host from a private repo if you&rsquo;re on an upgraded plan). If your <code>&lt;USERNAME&gt;.github.io</code> repo is private, head on over to <strong>Settings &gt; Options &gt; Danger Zone</strong> to change it back to public.</p>
+<p><img src="github_publicity.png" alt="Github Repo Publicity"></p>
+</li>
+<li>
+<p>Next, we’ll need to set the source of the Github User Page. If your repo is named <code>&lt;USERNAME&gt;.github.io</code>, Github Pages is enabled by default with public repos or private repos if you&rsquo;re on an upgraded plan.  This setting can be found at <strong>Settings &gt; Options &gt; Github Pages</strong>. We’ll select the source of the page as the <code>master</code> branch.</p>
+<p><img src="github_pages_branch.png" alt="Github Pages Branch"></p>
+</li>
+<li>
+<p>Make your way to the <strong>Environments</strong> tab of the <strong>Code</strong> tab on your repo&rsquo;s page to make sure that the deployment was successful. On this tab, you will see an activity log of your past deploys and highlighted at the top will be your most recent deployment.</p>
+<p><img src="github_pages_deployment.png" alt="Github Pages Deployment"></p>
+</li>
+<li>
+<p>Lastly, enter <code>&lt;USERNAME&gt;.github.io</code> on a new browser tab and behold your portfolio.</p>
+</li>
 </ol>
-
 <h1 id="conclusion">Conclusion</h1>
-
 <p>I hope that this was helpful. Although there are tonnes of easier ways to get a static portfolio site on Github Pages, I love Hugo’s approach because of its customizability, wide range of themes and inbuilt templates for things like Google Analytics, Disqus, etc. I also appreciate Github’s User Pages free static site hosting.</p>
  
         
@@ -308,7 +266,7 @@ chmod +x deploy.sh
 
         		<footer>
 			<span>
-			&copy; <time datetime="2020-03-05 07:12:31.918228 &#43;0300 EAT m=&#43;0.256068970">2020</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			&copy; <time datetime="2021-05-07 17:35:33.439454 &#43;0300 EAT m=&#43;0.127805685">2021</time> Zara. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
 			</span>
 		</footer>
 
