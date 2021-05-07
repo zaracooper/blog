@@ -67,11 +67,11 @@ Depending on the value of `GO111MODULE`, the go command takes on two kinds of mo
 2. **GOPATH mode**: Takes this mode when `GO111MODULE` is `off` or on `auto` with a project not using modules. In this mode, the go command looks in the GOPATH and vendor directories for dependencies. 
 
 ## 4. SemVer <a name="4-semver"></a>
-SemVer or in full **semantic versioning** is the main versioning system that Go modules use. A semantic version number takes the form `v major.minor.path` where:
+SemVer or in full **semantic versioning** is the main versioning system that Go modules use. A semantic version number takes the form `v major.minor.patch` where:
 
 1. `major`: denotes API changes that make the current version backward-incompatible with the former version. 
 2. `minor`: connotes the addition of backward-compatible features/functionalities to the version. 
-3. `path`: denotes the addition of backward-compatible bug fixes.
+3. `patch`: denotes the addition of backward-compatible bug fixes.
 
 All Go modules should be versioned as above with the addition of the prefix `v` e.g. **`v2.4.3`**.
 
